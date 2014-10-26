@@ -11,9 +11,9 @@
 
 
 \section{Einleitung} 
-Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und mit der Realisierung von Algorithmen auf ihr. Dieses Thema soll im Rahmen des Hardware Praktikums bearbeitet werden und ist uns aus der Veranstaltung "'Grundlagen der Rechnerarchethektur"' bereits grundlegend bekannt.\\ Um unsere Vorbereitung auf dieses Projekt dokumentieren und struckurieren zu k{\"o}nnen, erstellen wir ein Pflichtenheft. Dieses Pflichtenheft wird nur unsere Vorbereitung beinhalten und es wird au{\ss}erdem eine weitere Dokumentation von den Ergebnissen geben.
+Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und mit der Realisierung von Algorithmen auf ihr. Dieses Thema soll im Rahmen des Hardware Praktikums bearbeitet werden und ist uns aus der Veranstaltung "'Grundlagen der Rechnerarchitektur"' bereits grundlegend bekannt.\\ Um unsere Vorbereitung auf dieses Projekt dokumentieren und strukturieren zu k{\"o}nnen, erstellen wir ein Pflichtenheft. Dieses Pflichtenheft wird nur unsere Vorbereitung beinhalten und es wird au{\ss}erdem eine weitere Dokumentation der Ergebnissen geben.
 
 \section{Aufgabenstellung}
-Nach unserem Verst{\"a}ndniss ist das Ziel dieser Aufgabenstellung einen Algorithmus, welcher auf der Minimax-Maschine zu implementieren ist und eine sogennante Paketanaylse betreibt. Dieser "'Paketanalyse"'-Algorithmus befasst sich mit dem Datenpaketen, welche im Speicher der Minimax-Maschine abgelegt sind. Ein Datenpaket besteht immer aus einem Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler Länge.
+Nach unserem Verst{\"a}ndniss ist das Ziel dieser Aufgabenstellung einen Algorithmus, welcher auf der Minimax-Maschine zu implementieren ist und eine sogenannte Paketanalyse betreibt. Dieser "'Paketanalyse"'-Algorithmus befasst sich mit dem Datenpaketen, welche im Speicher der Minimax-Maschine abgelegt sind. Ein Datenpaket besteht immer aus einem Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler Länge.
 
 \end{document}
