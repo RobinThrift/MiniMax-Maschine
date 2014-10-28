@@ -22,16 +22,16 @@ Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb de
 
 \section{Ist-Analyse der Basis-Maschine}
 
-Die Minimax-Maschine ist ein minimales Rechensystem welches aus einfachen Registern (Basis: `ACCU`, `PC`, `IR`, `MDR`, `MAR`;
+Die Minimax-Maschine ist ein minimales Rechensystem welches aus einfachen Registern (Basis: \texttt{ACCU}, \texttt{PC}, \texttt{IR}, \texttt{MDR}, \texttt{MAR};
 weitere k{\"o}nnen hinzuge{\"u}fgt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
 ist und durch ein Mikropgramm gesteuert wird. Dabei sind die m{\"o}glichen Operationen auf die in der ALU implementieren
-Operationen beschr{\"a}nkt (Basis: 'ADD', 'SUB.B', 'TRANS.A', 'TRANS.B'). Die ALU kannn mit weiteren Operationen,
+Operationen beschr{\"a}nkt (Basis: \texttt{ADD}, \texttt{SUB.B}, \texttt{TRANS.A}, \texttt{TRANS.B}). Die ALU kannn mit weiteren Operationen,
 wie z. B. dem bitweisen UND, erg{\"a}nzt werden.
 
 
-Um eine Operation auszuf{\"u}hren m{\"u}ssen {\"u}ber die Multiplexer `ALUSel.A` und `AluSel.B` zwei Operanden ausgew{\"a}hlt werden
-und der ALU muss {\"u}ber die `ALU Ctrl`-Leitung der Code f{\"u}r die Operation {\"u}bergben werden. Das Ergebnis der Operation kann
-entweder in einem Register oder im HS (Adresse im Register `MAR`) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s. g. Flags 
+Um eine Operation auszuf{\"u}hren m{\"u}ssen {\"u}ber die Multiplexer \texttt{ALUSel.A} und \texttt{AluSel.B} zwei Operanden ausgew{\"a}hlt werden
+und der ALU muss {\"u}ber die \texttt{ALU Ctrl}-Leitung der Code f{\"u}r die Operation {\"u}bergben werden. Das Ergebnis der Operation kann
+entweder in einem Register oder im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s. g. Flags 
 gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden um z. B. bedingte Spr{\"u}nge auszuf{\"u}hren.
 
 
