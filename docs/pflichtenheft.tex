@@ -15,7 +15,7 @@ Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und mit der Real
 
 \section{Aufgabenstellung}
 Nach unserem Verst{\"a}ndniss ist das Ziel dieser Aufgabenstellung einen Algorithmus, welcher auf der Minimax-Maschine zu implementieren ist und eine sogenannte Paketanalyse betreibt. Dieser "'Paketanalyse"'-Algorithmus befasst sich mit dem Datenpaketen, welche im Speicher der Minimax-Maschine abgelegt sind.\\ Ein Datenpaket beginnt immer mit der Folge "'1110"' und besteht aus einem
-Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler L{\"a}nge. Der Kopf enth{\"a}lt die Kanalnummer zwischen der 32. und 47. Bitstelle. Zu einem Kanal können ein oder mehrere Pakete gehören, welche die selbe Kanalnummer haben.
+Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler L{\"a}nge. Der Kopf enth{\"a}lt die Kanalnummer zwischen der 32. und 47. Bitstelle. Zu einem Kanal k{\"ö}nnen ein oder mehrere Pakete geh{\"ö}ren, welche die selbe Kanalnummer haben.
 Die L{\"a}nge des kompletten Paketfeldes im Speicher wird als bekannt vorausgesetzt. Deswegen werden die einzelnen L{\"a}ngen der Pakete in ein entsprechendes Register vorgeladen.\\
 Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb der Speicherfelder der einzelnen Pakete befindet. Diese Datentabelle soll den Kanalnummern die L{\"a}ngen der jeweiligen Datenteile aller Pakete zuordenen. Diese Aufgabenstellung soll mit dem Minimax-Simulator simuliert und getestet werden. Die Maschine kann durch vorgegebene Bauteile erweitert werden, was sich aber auf die Bewertung auswirkt.
 
@@ -23,22 +23,22 @@ Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb de
 \section{Ist-Analyse der Basis-Maschine}
 
 Die Minimax-Maschine ist ein minimales Rechensystem welches aus einfachen Registern (Basis: `ACCU`, `PC`, `IR`, `MDR`, `MAR`;
-weitere können hinzugeüfgt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
-ist und durch ein Mikropgramm gesteuert wird. Dabei sind die möglichen Operationen auf die in der ALU implementieren
+weitere k{\"ö}nnen hinzuge{\"u}fgt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
+ist und durch ein Mikropgramm gesteuert wird. Dabei sind die m{\"ö}glichen Operationen auf die in der ALU implementieren
 Operationen beschr{\"a}nkt (Basis: 'ADD', 'SUB.B', 'TRANS.A', 'TRANS.B'). Die ALU kannn mit weiteren Operationen,
 wie z. B. dem bitweisen UND, erg{\"a}nzt werden.
 
 
-Um eine Operation auszuführen müssen über die Multiplexer `ALUSel.A` und `AluSel.B` zwei Operanden ausgew{\"a}hlt werden
-und der ALU muss über die `ALU Ctrl`-Leitung der Code für die Operation übergben werden. Das Ergebnis der Operation kann
-entweder in einem Register oder im HS (Adresse im Register `MAR`) gespeichert werden. Zus{\"a}tzlich können s. g. Flags 
-gesetzt werden, welche zurück zur Control Unit (CU) geleitet werden um z. B. bedingte Sprünge auszuführen.
+Um eine Operation auszuf{\"u}hren m{\"u}ssen {\"u}ber die Multiplexer `ALUSel.A` und `AluSel.B` zwei Operanden ausgew{\"a}hlt werden
+und der ALU muss {\"u}ber die `ALU Ctrl`-Leitung der Code f{\"u}r die Operation {\"u}bergben werden. Das Ergebnis der Operation kann
+entweder in einem Register oder im HS (Adresse im Register `MAR`) gespeichert werden. Zus{\"a}tzlich k{\"ö}nnen s. g. Flags 
+gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden um z. B. bedingte Spr{\"u}nge auszuf{\"u}hren.
 
 
 Die uns vorliegende Minimax-Maschine arbeitet mit 32-Bit und speichert Werte mit 32-Bit in den Registern und im HS.
-Alle ALU-Operationen werden folglich alle mit 32-Bit ausgeführt. Dies stellt sich jedoch für unser Aufgabe als
-Hindernis, da wir die Daten bitweise untersuchen müssen, Daten aus dem HS und den Registern jedoch nur als
-32-Bit Zahlen auslesen können und nicht als einzelne Bits.
+Alle ALU-Operationen werden folglich alle mit 32-Bit ausgef{\"u}hrt. Dies stellt sich jedoch f{\"u}r unser Aufgabe als
+Hindernis, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS und den Registern jedoch nur als
+32-Bit Zahlen auslesen k{\"ö}nnen und nicht als einzelne Bits.
 
 \section{Angestrebte Projektergebnisse}
 \begin{enumerate}
