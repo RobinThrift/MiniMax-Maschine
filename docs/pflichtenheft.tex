@@ -41,6 +41,17 @@ Alle ALU-Operationen werden folglich alle mit 32-Bit ausgef{\"u}hrt. Dies stellt
 Hindernis, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS und den Registern jedoch nur als
 32-Bit Zahlen auslesen k{\"o}nnen und nicht als einzelne Bits.
 
+Folglich wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept'" näher
+aufgeführt sind.
+
+
+\section{Implementierungskonzept}
+Wie bereits in der "'Ist-Analyse'" beschrieben handlet es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
+einzelne Bits. Dies erschwert die Suche nach der Anfgangssequenz der Datenpakete ($1110_{2} = 14_{10}$). Um diese Sequenz in der 32-Bit-Zahl
+zu finden muss mit diesem Muster also "'Maskiert'" werden. Dies geschieht über die bitweise Undverknüpfung mit dem Muster. Für die Minimax-Maschine
+heißt das konkret: 14 & ZAHL bitweise Undverknüpfen.
+
+
 \section{Angestrebte Projektergebnisse}
 \begin{enumerate}
 \item Die Tabelle, in der die einzelnen Kanalnummern und Paketl{\"a}ngen enthalten sind. (Als exportierte Speicherdatei)
