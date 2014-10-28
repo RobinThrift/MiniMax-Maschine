@@ -1,1 +1,1 @@
-pandoc -f latex --toc ./docs/pflichtenheft.text -o out/pflichtenheft.pdf
+pandoc -f latex --toc ./docs/pflichtenheft.tex -o out/pflichtenheft.pdf
