@@ -1,6 +1,6 @@
 \documentclass[12pt,titlepage]{article}
 
-\usepackage{ngerman,xunicode,amsmath,graphicx}
+\usepackage{ngerman,amsmath,graphicx}
 
 \begin{document}
 
@@ -31,7 +31,7 @@ wie z. B. dem bitweisen UND, erg{\"a}nzt werden.
 
 Um eine Operation auszuf{\"u}hren m{\"u}ssen {\"u}ber die Multiplexer \texttt{ALUSel.A} und \texttt{AluSel.B} zwei Operanden ausgew{\"a}hlt werden
 und der ALU muss {\"u}ber die \texttt{ALU Ctrl}-Leitung der Code f{\"u}r die Operation {\"u}bergben werden. An den Multiplexern liegen sowohl
-Konstanten als auch die Register an, welche zur ALU durchgeschaltet werden können. Das Ergebnis der Operation kann
+Konstanten als auch die Register an, welche zur ALU durchgeschaltet werden k{\"o}nnen. Das Ergebnis der Operation kann
 entweder in einem Register oder im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s. g. Flags 
 gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden um z. B. bedingte Spr{\"u}nge auszuf{\"u}hren.
 
@@ -41,15 +41,18 @@ Alle ALU-Operationen werden folglich alle mit 32-Bit ausgef{\"u}hrt. Dies stellt
 Hindernis, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS und den Registern jedoch nur als
 32-Bit Zahlen auslesen k{\"o}nnen und nicht als einzelne Bits.
 
-Folglich wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept'" näher
+Folglich wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept'" n{\"a}her
 aufgeführt sind.
 
 
 \section{Implementierungskonzept}
-Wie bereits in der "'Ist-Analyse'" beschrieben handlet es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
-einzelne Bits. Dies erschwert die Suche nach der Anfgangssequenz der Datenpakete ($1110_{2} = 14_{10}$). Um diese Sequenz in der 32-Bit-Zahl
-zu finden muss mit diesem Muster also "'Maskiert'" werden. Dies geschieht über die bitweise Undverknüpfung mit dem Muster. Für die Minimax-Maschine
-heißt das konkret: 14 & ZAHL bitweise Undverknüpfen.
+Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
+einzelne Bits. Dies erschwert die Suche nach der Anfangssequenz der Datenpakete ($1110_{2} = 14_{10}$). Um diese Sequenz in der 32-Bit-Zahl
+zu finden muss mit diesem Muster also Maskiert werden. Dies geschieht über die bitweise Und-Verknüpfung mit dem Muster. Für die Minimax-Maschine
+heißt das konkret: 14 \& ZAHL bitweise Und-verkn{\"u}pfen.\\
+Die Tabelle die als Ergebnis erstellt werden soll (siehe n{\"a}chster Abschnitt) kann nach erkennen der Anfangssequenz erstellt werden:
+Durch überspringen der ersten 32 irrelevanten Bits wird die 15 Bit lange Kanalnummer ausgelesen und gespeichert. Dazu wird die in einem Register liegende l{\"a}nge des Datenpacketes geschrieben. Dieser Vorgang wiederholt sich.\\
+Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im Anhang nachvollzogen werden.
 
 
 \section{Angestrebte Projektergebnisse}
@@ -66,10 +69,10 @@ heißt das konkret: 14 & ZAHL bitweise Undverknüpfen.
 \section{Hilfsmittel}
 Wir haben folgende Quellen benutzt:
 \begin{enumerate} 
-\item Internet (Wikipedia, etc.)
+\item Internet (wikipedia.de, github.com)
 \item Der SRA Minimax-Simulator
 \item Informationsfolien (Aufgabenstellung)
-\item Die Grundlagen der Rechnerarchithektur Materialien
+\item Die Grundlagen der Rechnerarchitektur Materialien
 \end{enumerate}
 
 \end{document}
