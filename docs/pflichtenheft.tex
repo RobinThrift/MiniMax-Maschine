@@ -73,6 +73,7 @@ Die vorliegende Aufgabenstellung kann in mehrere Teilprobleme zerlegt werden:
     \item Das Auslesen der Kanalnummer
     \end{enumerate}
 \item Das speichern der geforderten Daten im HS
+\item Das Überspringen der nicht benötigten Bits des Paketes
 \end{enumerate}
 
 \subsection{Sequenzielles Auslsesen aus dem Hauptspeicher}
@@ -84,7 +85,10 @@ und mit wir \texttt{ADDR} bezeichnen werden. Bei jeder Iteration wird der Wert a
 inkrementiert und es wird zur{\"u}ck zum Schleifenkopf gesprungen (Siehe Abb. 1 im Anhang).
 
 \subsection{Analyse der Daten}
-
+Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden. Im ersten Zustand wurde noch kein Paket
+gefunden und es wird mit Hilfe einer Bitmaske ($1110_{2} = 14_{10}$) nach der Anfangssequenz gesucht. Wenn die Startsequenz gefunden wurde wird der Zustand
+verändert und es wird auf die nächste Zahl aus dem HS gewartet. Wurde bereits ein Paketanfang gefunden wird nun die Kanalnummer
+extrahiert und dem Speicherprogramm übergeben. Nach dem Speichervorgang überspringt das Programm SKIP weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 
 Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
 einzelne Bits. Dies erschwert die Suche nach der Anfangssequenz der Datenpakete ($1110_{2} = 14_{10}$). Um diese Sequenz in der 32-Bit-Zahl
@@ -108,6 +112,9 @@ Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im A
 \subsection{Abb. 1: Flussdiagramm des Speicherauslesepgrogramms}
 
 \includegraphics[width=13cm]{readFromMemory.png}
+
+\subsection{Abb. 2: Flussdiagramm des Analyseprogramms}
+\includegraphics[width=13cm]{analyseData.png}
 
 \includegraphics[width=13cm]{algo_flow.png}
 
