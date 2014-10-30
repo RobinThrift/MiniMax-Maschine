@@ -24,15 +24,16 @@ Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb de
 
 Die Minimax-Maschine ist ein minimales Rechensystem welches aus einfachen Registern (Basis: \texttt{ACCU}, \texttt{PC}, \texttt{IR}, \texttt{MDR}, \texttt{MAR};
 weitere k{\"o}nnen hinzuge{\"u}fgt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
-ist und durch ein Mikropgramm gesteuert wird.\\
+ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eingang mindestens die ALU und hat zusätzlich einen Eingang, der den Schreibzugriff regelt.\\
 \\
 \\
 \begin{enumerate}
 \item \texttt{ACCU}: Abk{\"u}rzung f{\"u}r "'Accumulator"' ein Zwischenspeicher, um mit \texttt{MDR} Operationen durchführen zu k{\"o}nnen.
 \item \texttt{PC}: Abk{\"u}rzung f{\"u}r "'program counter"', wird meistens f{\"u}r das Z{\"a}hlen bzw. erh{\"o}en einer Speicheradresse benutzt.
 \item \texttt{IR}: Abk{\"u}rzung f{\"u}r "'instruction register"', enthält Opcode(8 Bit) und Adressteil(24 bit).
-\item \texttt{MDR}: Abk{\"u}rzung f{\"u}r "'memory data register"', Daten aus oder f{\"u}r den Hauptspeicher.
+\item \texttt{MDR}: Abk{\"u}rzung f{\"u}r "'memory data register"', enthält je nach Einstellung des Multiplexers texttt{MDR.Sel}, verschiede Daten entweder aus Hauptspecher oder aus der \texttt{ALU}.
 \item \texttt{MAR}: Abk{\"u}rzung f{\"u}r "'memory adress register"', enth{\"u}lt die Speicheradresse an der aus dem Hauptspeicher Daten geladen oder geschrieben werde sollen.
+\item \texttt{HS}: Abk{\"u}rzung f{\"u}r "'Hauptspeicher"', er wird mit 24-Bit durch \texttt{MAR} adressiert und gibt eine 32-Bit Zahl zur{\"u}ck. Auf die selbe Art funktioniert schreiben einer 32-Bit Zahl nat{\"u}rlich auch.
 \end{enumerate}
 Dabei sind die m{\"o}glichen Operationen auf die in der ALU implementieren
 Operationen beschr{\"a}nkt (Basis: \texttt{ADD}, \texttt{SUB.B}, \texttt{TRANS.A}, \texttt{TRANS.B}). Die ALU kannn mit weiteren Operationen,
@@ -121,3 +122,4 @@ Wir haben folgende Quellen benutzt:
 \item Informationsfolien (Aufgabenstellung)
 \item Die Grundlagen der Rechnerarchitektur Materialien
 \end{enumerate}
+
