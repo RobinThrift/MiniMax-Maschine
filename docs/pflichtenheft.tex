@@ -70,11 +70,11 @@ inkrementiert und es wird zur{\"u}ck zum Schleifenkopf gesprungen (Siehe Abb. 1 
 
 Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
 einzelne Bits. Dies erschwert die Suche nach der Anfangssequenz der Datenpakete ($1110_{2} = 14_{10}$). Um diese Sequenz in der 32-Bit-Zahl
-zu finden muss mit diesem Muster also Maskiert werden. Dies geschieht über die bitweise Und-Verknüpfung mit dem Muster. Für die Minimax-Maschine
+zu finden muss mit diesem Muster also Maskiert werden. Dies geschieht {\"u}ber die bitweise Und-Verkn{\"u}pfung mit dem Muster. F{\"u}r die Minimax-Maschine
 heißt das konkret: 14 \& ZAHL bitweise Und-verkn{\"u}pfen. Folglich wird die Basismaschine um die Konstante 14 ($=1110_{2}$) und eine bitweise UND-Operation
 erweitert.\\
 Die Tabelle die als Ergebnis erstellt werden soll (siehe n{\"a}chster Abschnitt) kann nach erkennen der Anfangssequenz erstellt werden:
-Durch überspringen der ersten 32 irrelevanten Bits wird die 15 Bit lange Kanalnummer ausgelesen und gespeichert. Dazu wird die in einem Register liegende l{\"a}nge des Datenpacketes geschrieben. Dieser Vorgang wiederholt sich.\\
+Durch {\"u}berspringen der ersten 32 irrelevanten Bits wird die 15 Bit lange Kanalnummer ausgelesen und gespeichert. Dazu wird die in einem Register liegende l{\"a}nge des Datenpacketes geschrieben. Dieser Vorgang wiederholt sich.\\
 Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im Anhang nachvollzogen werden.
 
 
