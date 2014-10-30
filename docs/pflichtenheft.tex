@@ -90,6 +90,13 @@ gefunden und es wird mit Hilfe einer Bitmaske ($1110_{2} = 14_{10}$) nach der An
 verändert und es wird auf die nächste Zahl aus dem HS gewartet. Wurde bereits ein Paketanfang gefunden wird nun die Kanalnummer
 extrahiert und dem Speicherprogramm übergeben. Nach dem Speichervorgang überspringt das Programm SKIP weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 
+\subsection{Überspringen der nicht benötigten Bits des Paketes}
+Da sowohl die Länge des Headers (80 Bit) als auch die Länge des Datenpaketes (im Register \texttt{LNGTH} gepsichert) bekannt ist, kann durch
+ein einfaches Abzählen der Bits der Rest des Paketes übersprungen werden. Hierzu wird das Zählregister \texttt{SKIPPED} zuerst mit den Restbits
+des Headers initialisiert (16 Bits) und dann werden solange 32 Bit zum Zählregister addiert, bis es gleich der Länge des Datenpaketes ist. Bei
+jeder Interation wird dabei das Adressregister des Schleifenprogramms inkrementiert. Wenn die Länge des Datenfeldes 0 ist wird das Adressregister
+inkrementiert und das Programm zum Überspringen wird beendet (Siehe Abb. 3 im Anhang).
+
 Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
 einzelne Bits. Dies erschwert die Suche nach der Anfangssequenz der Datenpakete ($1110_{2} = 14_{10}$). Um diese Sequenz in der 32-Bit-Zahl
 zu finden muss mit diesem Muster also Maskiert werden. Dies geschieht {\"u}ber die bitweise Und-Verkn{\"u}pfung mit dem Muster. F{\"u}r die Minimax-Maschine
@@ -115,6 +122,9 @@ Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im A
 
 \subsection{Abb. 2: Flussdiagramm des Analyseprogramms}
 \includegraphics[width=13cm]{analyseData.png}
+
+\subsection{Abb. 3: Flussdiagramm des Programms zum Überspringen des Datenfeldes}
+\includegraphics[width=10cm]{skipBits.png}
 
 \includegraphics[width=13cm]{algo_flow.png}
 
