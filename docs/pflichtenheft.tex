@@ -35,6 +35,15 @@ ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eing
 \item \texttt{MAR}: Abk{\"u}rzung f{\"u}r "'memory adress register"', enth{\"u}lt die Speicheradresse an der aus dem Hauptspeicher Daten geladen oder geschrieben werde sollen.
 \item \texttt{HS}: Abk{\"u}rzung f{\"u}r "'Hauptspeicher"', er wird mit 24-Bit durch \texttt{MAR} adressiert und gibt eine 32-Bit Zahl zur{\"u}ck. Auf die selbe Art funktioniert schreiben einer 32-Bit Zahl nat{\"u}rlich auch.
 \end{enumerate}
+\\
+\begin{enumerate}
+\item \texttt{ADD}: Addiert ALU-Eingang A und ALU-Eingang B
+\item \texttt{SUB.B}: Subtrahiert ALU-Eingang A von ALU-Eingang B
+\item \texttt{TRANS.A}: Schaltet den ALU-Eingang A durch
+\item \texttt{TRANS.B}: Schaltet den ALU-Eingang B durch
+\end{enumerate}
+\\
+\\
 Dabei sind die m{\"o}glichen Operationen auf die in der ALU implementieren
 Operationen beschr{\"a}nkt (Basis: \texttt{ADD}, \texttt{SUB.B}, \texttt{TRANS.A}, \texttt{TRANS.B}). Die ALU kannn mit weiteren Operationen,
 wie z. B. dem bitweisen UND, erg{\"a}nzt werden.\\
