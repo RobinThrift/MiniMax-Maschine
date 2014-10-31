@@ -98,7 +98,7 @@ extrahiert, im Register \texttt{ACCUR} abgelegt und damit dem Speicherprogramm �
 die weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 
 \subsection{Überspringen der nicht benötigten Bits des Paketes}
-Da sowohl die Länge des Headers (80 Bit) als auch die Länge des Datenpaketes (im Register \texttt{LNGTH} gepsichert) bekannt ist, kann durch
+Da sowohl die Länge des Headers (80 Bit) als auch die Länge des Datenpaketes (im Register \texttt{LNGTH} abgelegt) bekannt ist, kann durch
 ein einfaches Abzählen der Bits der Rest des Paketes übersprungen werden. Hierzu wird das Zählregister \texttt{SKIPPED} zuerst mit den Restbits
 des Headers initialisiert (16 Bits) und dann werden solange 32 Bit zum Zählregister addiert, bis es gleich der Länge des Datenpaketes ist. Bei
 jeder Interation wird dabei das Adressregister des Schleifenprogramms inkrementiert. Wenn die Länge des Datenfeldes 0 ist wird das Adressregister
