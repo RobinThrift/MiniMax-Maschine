@@ -97,12 +97,20 @@ verändert und es wird auf die nächste Zahl aus dem HS gewartet. Wurde bereits 
 extrahiert, im Register \texttt{ACCUR} abgelegt und damit dem Speicherprogramm übergeben. Nach dem Speichervorgang überspringt ein weiteres Mikroprogramm
 die weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 
+\subsection{Ablegen der Daten im Hauptspeicher}
+Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu zählen und in eine Tabell im Hauptspeicher abzulegen.
+Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Regsiter \texttt{OFFSET}) welche unsere Tabelle weit von den Eingabedaten
+im Hauptspeicher plaziert. Die Tabelle wird als einfaches inndiziertes Array modeliert, in welchem die Kanalnummern die
+Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{ACCU}) wird also die Speicherzelle mit der Adresse 
+$\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{LNGTH}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
+Abb. 3 im Anhang)
+
 \subsection{Überspringen der nicht benötigten Bits des Paketes}
 Da sowohl die Länge des Headers (80 Bit) als auch die Länge des Datenpaketes (im Register \texttt{LNGTH} abgelegt) bekannt ist, kann durch
 ein einfaches Abzählen der Bits der Rest des Paketes übersprungen werden. Hierzu wird das Zählregister \texttt{SKIPPED} zuerst mit den Restbits
 des Headers initialisiert (16 Bits) und dann werden solange 32 Bit zum Zählregister addiert, bis es gleich der Länge des Datenpaketes ist. Bei
 jeder Interation wird dabei das Adressregister des Schleifenprogramms inkrementiert. Wenn die Länge des Datenfeldes 0 ist wird das Adressregister
-inkrementiert und das Programm zum Überspringen wird beendet (Siehe Abb. 3 im Anhang).
+inkrementiert und das Programm zum Überspringen wird beendet (Siehe Abb. 4 im Anhang).
 
 Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
 einzelne Bits. Dies erschwert die Suche nach der Anfangssequenz der Datenpakete ($1110_{2} = 14_{10}$). Um diese Sequenz in der 32-Bit-Zahl
@@ -130,7 +138,10 @@ Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im A
 \subsection{Abb. 2: Flussdiagramm des Analyseprogramms}
 \includegraphics[width=13cm]{analyseData.png}
 
-\subsection{Abb. 3: Flussdiagramm des Programms zum Überspringen des Datenfeldes}
+\subsection{Abb. 3: Flussdiagramm des Speicherprogramms}
+\includegraphics[width=13cm]{saveToHS.png}
+
+\subsection{Abb. 4: Flussdiagramm des Programms zum Überspringen des Datenfeldes}
 \includegraphics[width=10cm]{skipBits.png}
 
 \includegraphics[width=13cm]{algo_flow.png}
