@@ -1,6 +1,8 @@
 \documentclass[12pt,titlepage]{article}
 
-\usepackage{ngerman,amsmath,graphicx, a4wide}
+\usepackage{ngerman,amsmath,graphicx,a4wide,fontspec}
+\setmainfont{Helvetica Neue}
+\setmonofont{Menlo Regular}
 
 \begin{document}
 
@@ -8,6 +10,8 @@
 \author{Clemens Pollak, Robin Thrift, Max Boll}
 \date{2014}
 \maketitle
+
+\tableofcontents
 
 
 \section{Einleitung} 
@@ -19,13 +23,14 @@ Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler L{\"a}nge
 Die L{\"a}nge des kompletten Paketfeldes im Speicher wird als bekannt vorausgesetzt. Deswegen werden die einzelnen L{\"a}ngen der Pakete in ein entsprechendes Register vorgeladen.\\
 Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb der Speicherfelder der einzelnen Pakete befindet. Diese Datentabelle soll den Kanalnummern die L{\"a}ngen der jeweiligen Datenteile aller Pakete zuordenen um dann später exportiert zu werden. Diese Aufgabenstellung soll mit dem Minimax-Simulator simuliert und getestet werden. Die Maschine kann durch vorgegebene Bauteile erweitert werden, was sich aber auf die Bewertung auswirkt. Der Algorithmus wird in Form der sogenannten Steuertabelle implementiert und soll außerdem als Flussdiagramm abgegeben werden.
 
+\newpage
 
 \section{Ist-Analyse der Basis-Maschine}
 
 Die Minimax-Maschine ist ein minimales Rechensystem welches aus einfachen Registern (Basis: \texttt{ACCU}, \texttt{PC}, \texttt{IR}, \texttt{MDR}, \texttt{MAR};
 weitere k{\"o}nnen hinzuge{\"u}fgt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
 ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eingang mindestens die ALU und hat zusätzlich einen Eingang, der den Schreibzugriff regelt.\\
-\\
+\leavevmode \\
 \\
 \begin{enumerate}
 \item \texttt{ACCU}: Abk{\"u}rzung f{\"u}r "'Accumulator"' ein Zwischenspeicher, um mit \texttt{MDR} Operationen durchführen zu k{\"o}nnen.
@@ -35,14 +40,14 @@ ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eing
 \item \texttt{MAR}: Abk{\"u}rzung f{\"u}r "'memory adress register"', enth{\"u}lt die Speicheradresse an der aus dem Hauptspeicher Daten geladen oder geschrieben werde sollen.
 \item \texttt{HS}: Abk{\"u}rzung f{\"u}r "'Hauptspeicher"', er wird mit 24-Bit durch \texttt{MAR} adressiert und gibt eine 32-Bit Zahl zur{\"u}ck. Auf die selbe Art funktioniert schreiben einer 32-Bit Zahl nat{\"u}rlich auch.
 \end{enumerate}
-\\
+\leavevmode \\
 \begin{enumerate}
 \item \texttt{ADD}: Addiert ALU-Eingang A und ALU-Eingang B
 \item \texttt{SUB.B}: Subtrahiert ALU-Eingang A von ALU-Eingang B
 \item \texttt{TRANS.A}: Schaltet den ALU-Eingang A durch
 \item \texttt{TRANS.B}: Schaltet den ALU-Eingang B durch
 \end{enumerate}
-\\
+\leavevmode \\
 \\
 Dabei sind die m{\"o}glichen Operationen auf die in der ALU implementieren
 Operationen beschr{\"a}nkt (Basis: \texttt{ADD}, \texttt{SUB.B}, \texttt{TRANS.A}, \texttt{TRANS.B}). Die ALU kannn mit weiteren Operationen,
@@ -62,6 +67,7 @@ Hindernis, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS un
 Folglich wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept'" n{\"a}her
 aufgeführt sind.
 
+\newpage
 
 \section{Implementierungskonzept}
 Die vorliegende Aufgabenstellung kann in mehrere Teilprobleme zerlegt werden:

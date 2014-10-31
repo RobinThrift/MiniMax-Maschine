@@ -3,3 +3,7 @@
 
 # Project
 out/*
+docs/*.log
+docs/*.pdf
+docs/*.aux
+docs/*.toc
