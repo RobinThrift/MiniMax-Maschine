@@ -13,6 +13,7 @@
 
 \tableofcontents
 
+\newpage
 
 \section{Einleitung} 
 Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und mit der Realisierung von Algorithmen auf ihr. Dieses Thema soll im Rahmen des Hardware Praktikums bearbeitet werden und ist uns aus der Veranstaltung "'Grundlagen der Rechnerarchitektur"' bereits grundlegend bekannt.\\ Um unsere Vorbereitung auf dieses Projekt dokumentieren und strukturieren zu k{\"o}nnen, erstellen wir ein Pflichtenheft. Dieses Pflichtenheft wird nur unsere Vorbereitung beinhalten und es wird au{\ss}erdem eine weitere Dokumentation der Ergebnissen geben. Außerdem wird es w{\"a}hrend der Bearbeitung unseres Projects einen Leitfaden führ uns darstellen, der die Implementierung der L{\"o}sung vereinfacht und beschleunigt.
@@ -30,8 +31,6 @@ Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb de
 Die Minimax-Maschine ist ein minimales Rechensystem welches aus einfachen Registern (Basis: \texttt{ACCU}, \texttt{PC}, \texttt{IR}, \texttt{MDR}, \texttt{MAR};
 weitere k{\"o}nnen hinzuge{\"u}fgt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
 ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eingang mindestens die ALU und hat zusätzlich einen Eingang, der den Schreibzugriff regelt.\\
-\leavevmode \\
-\\
 \begin{enumerate}
 \item \texttt{ACCU}: Abk{\"u}rzung f{\"u}r "'Accumulator"' ein Zwischenspeicher, um mit \texttt{MDR} Operationen durchführen zu k{\"o}nnen.
 \item \texttt{PC}: Abk{\"u}rzung f{\"u}r "'program counter"', wird meistens f{\"u}r das Z{\"a}hlen bzw. erh{\"o}en einer Speicheradresse benutzt.
@@ -40,15 +39,18 @@ ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eing
 \item \texttt{MAR}: Abk{\"u}rzung f{\"u}r "'memory adress register"', enth{\"u}lt die Speicheradresse an der aus dem Hauptspeicher Daten geladen oder geschrieben werde sollen.
 \item \texttt{HS}: Abk{\"u}rzung f{\"u}r "'Hauptspeicher"', er wird mit 24-Bit durch \texttt{MAR} adressiert und gibt eine 32-Bit Zahl zur{\"u}ck. Auf die selbe Art funktioniert schreiben einer 32-Bit Zahl nat{\"u}rlich auch.
 \end{enumerate}
+
 \leavevmode \\
+
 \begin{enumerate}
 \item \texttt{ADD}: Addiert ALU-Eingang A und ALU-Eingang B
 \item \texttt{SUB.B}: Subtrahiert ALU-Eingang A von ALU-Eingang B
 \item \texttt{TRANS.A}: Schaltet den ALU-Eingang A durch
 \item \texttt{TRANS.B}: Schaltet den ALU-Eingang B durch
 \end{enumerate}
+
 \leavevmode \\
-\\
+
 Dabei sind die m{\"o}glichen Operationen auf die in der ALU implementieren
 Operationen beschr{\"a}nkt (Basis: \texttt{ADD}, \texttt{SUB.B}, \texttt{TRANS.A}, \texttt{TRANS.B}). Die ALU kannn mit weiteren Operationen,
 wie z. B. dem bitweisen UND, erg{\"a}nzt werden.\\
@@ -146,9 +148,11 @@ Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im A
 
 \includegraphics[width=13cm]{algo_flow.png}
 
+\newpage
+
 \section{Arbeitsaufteilung}
 
-\begin{tabular} { |l||c| }
+\begin{tabular}{|l|c|}
 \hline
 Robin Thrift & Aufgabe1 \\
 \hline
