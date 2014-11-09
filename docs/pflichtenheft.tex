@@ -97,7 +97,7 @@ inkrementiert und es wird zur{\"u}ck zum Schleifenkopf gesprungen (Siehe Abb. 1 
 Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden. Im ersten Zustand wurde noch kein Paket
 gefunden und es wird mit Hilfe einer Bitmaske ($1110_{2} = 14_{10}$) nach der Anfangssequenz gesucht. Wenn die Startsequenz gefunden wurde wird der Zustand
 verändert und es wird auf die nächste Zahl aus dem HS gewartet. Wurde bereits ein Paketanfang gefunden wird nun die Kanalnummer
-extrahiert, im Register \texttt{ACCUR} abgelegt und damit dem Speicherprogramm übergeben. Nach dem Speichervorgang überspringt ein weiteres Mikroprogramm
+extrahiert, im Register \texttt{ACCU} abgelegt und damit dem Speicherprogramm übergeben. Nach dem Speichervorgang überspringt ein weiteres Mikroprogramm
 die weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 
 \subsection{Ablegen der Daten im Hauptspeicher}
