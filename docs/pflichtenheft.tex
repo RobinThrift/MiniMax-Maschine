@@ -101,8 +101,8 @@ extrahiert, im Register \texttt{ACCU} abgelegt und damit dem Speicherprogramm ü
 die weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 
 \subsection{Ablegen der Daten im Hauptspeicher}
-Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu zählen und in eine Tabell im Hauptspeicher abzulegen.
-Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Regsiter \texttt{OFFSET}) welche unsere Tabelle weit von den Eingabedaten
+Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu z{\"a}hlen und in eine Tabelle im Hauptspeicher abzulegen.
+Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Register \texttt{OFFSET}), welche unsere Tabelle weit von den Eingabedaten
 im Hauptspeicher plaziert. Die Tabelle wird als einfaches inndiziertes Array modeliert, in welchem die Kanalnummern die
 Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{ACCU}) wird also die Speicherzelle mit der Adresse 
 $\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{LNGTH}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
