@@ -85,18 +85,18 @@ Die vorliegende Aufgabenstellung kann in mehrere Teilprobleme zerlegt werden:
 \end{enumerate}
 
 \subsection{Sequenzielles Auslsesen aus dem Hauptspeicher}
-Zun{\"a}chst m{\"u}ssen also die abgelegten sequenziell Daten ausgelsen werden. Da die Anzahl der in den Speicher geladenen Bits
+Zun{\"a}chst m{\"u}ssen also die abgelegten Daten sequenziell ausgelsen werden. Da die Anzahl der in den Speicher geladenen Bits
 bekannt ist (im Register \texttt{LNGTH} abgelegt), kann hierzu ein Mirkoprogramm implementiert werden, welches mithilfe
-einer Schleife alle Speicherzellen ausliest, bis Die Anzahl der ausgelesenen Bits gleich der Zahl im Register \texttt{LGNTH} ist.
-Hierzuh muss die Minimax-Maschine um ein Register erweitert werden welches die akutelle Speicheradresse enth{\"a}lt (anfangs 0),
+einer Schleife alle Speicherzellen ausliest, bis die Anzahl der ausgelesenen Bits gleich der Zahl im Register \texttt{LGNTH} ist.
+Hierzu muss die Minimax-Maschine um ein Register erweitert werden, welches die akutelle Speicheradresse enth{\"a}lt (anfangs 0),
 und mit wir \texttt{ADDR} bezeichnen werden. Bei jeder Iteration wird der Wert an der Adresse \texttt{ADDR} im Register 
-\texttt{MDR} gespeichert und steht somit dem Analyseprogramm zur verf{\"u}gung. Nach der Analyse wird das Register \texttt{ADDR}
+\texttt{MDR} gespeichert und steht somit dem Analyseprogramm zur Verf{\"u}gung. Nach der Analyse wird das Register \texttt{ADDR}
 inkrementiert und es wird zur{\"u}ck zum Schleifenkopf gesprungen (Siehe Abb. 1 im Anhang).
 
 \subsection{Analyse der Daten}
 Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden. Im ersten Zustand wurde noch kein Paket
 gefunden und es wird mit Hilfe einer Bitmaske ($1111_{2} = 15_{10}$) nach der Anfangssequenz gesucht. Wenn die Startsequenz gefunden wurde wird der Zustand
-verändert und es wird auf die nächste Zahl aus dem HS gewartet. Wurde bereits ein Paketanfang gefunden wird nun die Kanalnummer
+verändert und es wird auf die nächste Zahl aus dem HS gewartet. Wurde bereits ein Paketanfang gefunden, wird nun die Kanalnummer
 extrahiert, im Register \texttt{ACCU} abgelegt und damit dem Speicherprogramm übergeben. Nach dem Speichervorgang überspringt ein weiteres Mikroprogramm
 die weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 
@@ -115,9 +115,9 @@ des Headers initialisiert (16 Bits) und dann werden solange 32 Bit zum Zählregi
 jeder Interation wird dabei das Adressregister des Schleifenprogramms inkrementiert. Wenn die Länge des Datenfeldes 0 ist wird das Adressregister
 inkrementiert und das Programm zum Überspringen wird beendet (Siehe Abb. 4 im Anhang).
 
-Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine welche Daten als 32-Bit-Zahlen behandelt und nicht als 
+Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine, welche Daten als 32-Bit-Zahlen behandelt und nicht als 
 einzelne Bits. Dies erschwert die Suche nach der Anfangssequenz der Datenpakete ($1111_{2} = 15_{10}$). Um diese Sequenz in der 32-Bit-Zahl
-zu finden muss mit diesem Muster also Maskiert werden. Dies geschieht {\"u}ber die bitweise Und-Verkn{\"u}pfung mit dem Muster. F{\"u}r die Minimax-Maschine
+zu finden muss mit diesem Muster also maskiert werden. Dies geschieht {\"u}ber die bitweise Und-Verkn{\"u}pfung mit dem Muster. F{\"u}r die Minimax-Maschine
 heißt das konkret: 15 \& ZAHL bitweise Und-verkn{\"u}pfen. Folglich wird die Basismaschine um die Konstante 15 ($=1111_{2}$) und eine bitweise UND-Operation
 erweitert.\\
 Die Tabelle die als Ergebnis erstellt werden soll (siehe n{\"a}chster Abschnitt) kann nach erkennen der Anfangssequenz erstellt werden:
