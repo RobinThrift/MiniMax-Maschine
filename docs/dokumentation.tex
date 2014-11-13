@@ -150,11 +150,18 @@ Abb. 3 im Anhang)
 \subsubsection{ALU-Opertationen}
 
 \begin{enumerate}
-\item placeholder
+\item \texttt{A AND B}: Bitweise Undverknüpfung
 \end{enumerate}
 
 \subsubsection{Konstanten}
-Wir haben nur eine Konstante verwendet, diejenige die in dem Register \texttt{OFFSET} gespeichert ist. Sie beträgt: <value>
+\begin{enumerate}
+\item \texttt{511 (1FF)}: OFFSET für die Speichertabelle
+\item \texttt{15}: Bitmaske zur Erkennung der Startsequenz
+\item \texttt{14}: Subtraktionswert zur Erkennung der Startsequenz
+\item \texttt{31}: Bitmaske zum Auslesen der Kanalnummern (nur für Benchmark)
+\item \texttt{32}: Speicherblockgröße
+\item \texttt{-16}: Headeroverflow
+\end{enumerate}
 
 \subsubsection{Multiplexer-Eingänge}
 
