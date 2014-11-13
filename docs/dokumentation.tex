@@ -8,7 +8,7 @@
 
 \title{Miniprojekt: \\ Minimax-Maschine \\ Dokumentation}
 \author{Clemens Pollak, Robin Thrift, Max Boll}
-\date{Hardware Projekt 2014 \\ 11.11.2014}
+\date{Hardware Projekt 2014 \\ 14.11.2014}
 \maketitle
 
 \tableofcontents
@@ -88,8 +88,8 @@ Wir haben das Hauptproblem in einige Teilprobleme aufgeteilt:
 \end{enumerate}
 
 \subsection{Sequenzielles Auslesen aus dem Hauptspeicher}
-Zun{\"a}chst m{\"u}ssen also die abgelegten Daten sequenziell ausgelesen werden. Da die Anzahl der in den Speicher geladenen Bits
-bekannt ist (im Register \texttt{LNGTH} abgelegt), kann hierzu ein Mirkoprogramm implementiert werden, welches mithilfe
+Zun{\"a}chst m{\"u}ssen die abgelegten Daten sequenziell ausgelesen werden. Da die Anzahl der in den Speicher geladenen Bits
+bekannt ist (im Register \texttt{LNGTH} abgelegt), kann hierzu ein Mikroprogramm implementiert werden, welches mithilfe
 einer Schleife alle Speicherzellen ausliest, bis die Anzahl der ausgelesenen Bits gleich der Zahl im Register \texttt{LGNTH} ist.
 Hierzu muss die Minimax-Maschine um ein Register erweitert werden, welches die aktuelle Speicheradresse enth{\"a}lt (anfangs 0),
 und mit wir \texttt{ADDR} bezeichnen werden. Bei jeder Iteration wird der Wert an der Adresse \texttt{ADDR} im Register 
@@ -167,7 +167,7 @@ Abb. 3 im Anhang)
 
 \subsubsection{Multiplexer-Eingänge}
 
-\begin{table}
+\begin{table}[h!]
     \begin{tabular}{l|l}
     Adresse & Wert              \\
     \hline  					\\
@@ -186,7 +186,7 @@ Abb. 3 im Anhang)
     \caption{ALUSel.A}
 \end{table}
 
-\begin{table}
+\begin{table}[h!]
     \begin{tabular}{l|l}
     Adresse & Wert            \\
     \hline                    \\
@@ -204,6 +204,7 @@ Abb. 3 im Anhang)
     \caption{ALUSel.B}
 \end{table}
 
+<<<<<<< HEAD
 \subsection{Bewertung unserer Lösungen}
 
 \begin{enumerate}
@@ -221,6 +222,162 @@ Mit der Laufzeit sind hier die Takte, die die Minimax-Maschine braucht um unser 
 \subsubsection{Algorithmuslänge}
 
 
+=======
+\newpage
+
+\subsection{Programmdruchlauf}
+Als Beispiel werden hier die ersten 44 Bytes des zweiten Benchmarks untersucht (Für die vollständige Steuertabelle siehe Abbildung 7).
+
+\leavevmode \\
+
+\begin{table}[h!]
+    \begin{tabular}{l|l}
+    Adresse & Wert            \\
+    \hline                    \\
+    0     & 16843022  \\
+    1     & 16842760  \\
+    2     & 16843009  \\
+    3     & 16843009  \\
+    4     & 16843009  \\
+    5     & 16843022  \\
+    6     & 16842767  \\
+    7     & 16843009  \\
+    8     & 16843009  \\
+    9     & 16843009  \\
+    A     & 16843022  \\
+    \end{tabular}
+    \caption{Ersten 3200 Bit des zweiten Benchmarks interpretiert als 32-Bit-Zahlen}
+\end{table}
+
+\includegraphics[width=16cm]{listing/row1-4.png}
+\leavevmode \\
+
+Zunächst wird die Adresse gesetzt (anfangs 0) und der Wert an der Adresse ausgelesen und in \texttt{MDR} abgelegt.
+Dies ist der Schleifenkopf, und \texttt{ADDR} entspricht der Lauf-Variable.
+Wir ziehen 32 vom \texttt{COUNT}-Register ab, welches bereits mit der Anzahl Bits des Benchmarks gefüllt wurde.
+Ist \texttt{COUNT} Null, ist das Programm vorbei, wenn nicht springen wir zum Analyseprogramm.
+Im ersten Durchlauf liegt nun im Register \texttt{MDR} die Zahl 16843022.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row6.png}
+\leavevmode \\
+
+Entsprechend des Zustands wird hier unterschieden zwischen Kanalnummer- und Startsequenzsuche. Im ersten Durchlauf
+wird natürlich erstmal eine Startsequenz gesucht, und der Zustand ist Null (0).
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row7-8.png}
+\leavevmode \\
+
+Nun wird die Bitmaske auf den Wert aus \texttt{MDR} angewendet und anschließend die Startsequenz abgezogen, um
+zu überprüfen, ob diese im Wert enthalten ist. Ist dies der Fall, so springen wir zur Zeile mit dem Label \dq new\dq
+da es sich um ein neues Datenpaket handelt. In diesem konkreten Fall wenden wir also $16843022 \text{ AND } 15$ an, und finden
+die Startsequenz.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row9-10.png}
+\leavevmode \\
+
+Hier wird die Datenlänge überprüft, welches wir jedoch für den Moment ignorieren können, wir überspringen im ersten Fall auch den Speicheralgorithmus, 
+und machen mit Zeile 18 weiter:
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row18-19.png}
+\leavevmode \\
+
+Da wir die Startsequenz gefunden haben setzen wir nun den Zustand auf 1 und initialisieren die Datenlänge mit 0. Danach springt
+das Programm zurück zur Schleife:
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row1-5.png}
+\leavevmode \\
+
+In Zeile 5 wird die Adresse im Register \texttt{ADDR} inkrementiert und wir springen zum Schleifenkopf zurück um die nächste
+Iteration zu starten. Wir laden nun den Wert 16842760 aus dem Speicher und übergeben ihn dem Analyseprogramm.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row6.png}
+\leavevmode \\
+
+Wir überprüfen erneut den Zustand und springen nun zum Auslesen der Kanalnummer, da wir uns in Zustand 1 befinden.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row21-22.png}
+\leavevmode \\
+
+Mit der Bitmaske 31 lesen wir die Kanalnummer aus der Zahl aus, speichern sie im Register \texttt{CHNL}
+und setzen anschließend den Zustand wieder auf 0 und springen zur Schleife
+zurück.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row1-5.png}
+\leavevmode \\
+
+Nun laden wir den Wert 16843009 aus dem Speicher und übergeben ihn dem Analyseprogramm.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row6.png}
+\leavevmode \\
+
+Nun sind wir wieder im Zustand 0, suchen also wieder nach der Startsequenz.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row7-8.png}
+\leavevmode \\
+
+Die Startsequenz kann nicht gefunden werden, also springen wir zur Zeile 20.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row20.png}
+\leavevmode \\
+
+Wir addieren die Länge der ausgelassenen Zahl in Bits (32) zur aktuellen Gesamtlänge des Datenfeldes (hier 0) und
+springen zurück zur Schleife.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row1-5.png}
+\leavevmode \\
+
+Wir überspringen für dieses Beispiel Block 4 im Speicher und machen mit Adresse 5 weiter; Wert: 16843022.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row7-8.png}
+\leavevmode \\
+
+Wir suchen erneut nach der Startsequenz und finden sie, nun ziehen wir 16 von der gezählten Länge ab (Anzahl Bits des Headers, die wir
+mitgezählt haben) und übergeben dem Speicherprogramm:
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row11-17.png}
+\leavevmode \\
+
+Zunächst wird die aktuelle Adresse zwischen gespeichert, danach addieren wir zu unserem OFFSET die Kanalnummer, und benutzen das Ergebnis
+als neue Adresse. Dann wird der Aktuelle Wert an der Adresse ausgelesen und wir addieren unsere gerade gezählte Länge dazu (Zeile 15).
+Anschließend wird der neue Wert im HS abgelegt und wird stellen die ursprüngliche Adresse wieder her.
+
+\leavevmode \\
+\includegraphics[width=16cm]{listing/row18-19.png}
+\leavevmode \\
+
+Nun wird wie zuvor die Datenlänge wieder mit 0 initialisiert, der Zustand auf 1 gesetzt und es wird zurück zur Schleife gesprungen.
+
+\leavevmode \\
+
+Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Dabei ensteht für dieses Beispiel volgende Tabelle im HS:
+
+\begin{table}[h!]
+    \begin{tabular}{l|l}
+    Adresse & Wert            \\
+    \hline                    \\
+    207   & 80       \\
+    208   & 0        \\
+    ...   & 0        \\
+    20E   & 80       \\
+    \end{tabular}
+\end{table}
+
+\newpage
+>>>>>>> 043f143ec91bdf9c619477c1531ffbf8585f4608
 
 \section{Anhang}
 
@@ -241,6 +398,9 @@ Mit der Laufzeit sind hier die Takte, die die Minimax-Maschine braucht um unser 
 
 \subsection{Abb. 6: Aufbau der erweiterten Maschine}
 \includegraphics[width=10cm]{schematics_added.png}
+
+\subsection{Abb. 7: Vollständige Steuertabelle}
+\includegraphics[width=10cm]{signal_table.png}
 
 \newpage
 
