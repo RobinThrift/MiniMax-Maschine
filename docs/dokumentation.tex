@@ -58,7 +58,7 @@ wie z. B. dem bitweisen UND, erg{\"a}nzt werden.\\
 Um eine Operation auszuf{\"u}hren m{\"u}ssen {\"u}ber die Multiplexer \texttt{ALUSel.A} und \texttt{AluSel.B} zwei Operanden ausgew{\"a}hlt werden
 und der ALU muss {\"u}ber die \texttt{ALU Ctrl}-Leitung der Code f{\"u}r die Operation {\"u}bergben werden. An den Multiplexern liegen sowohl
 Konstanten als auch die Register an, welche zur ALU durchgeschaltet werden k{\"o}nnen. Das Ergebnis der Operation kann
-entweder in einem Register oder (über MDR) im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s. g. Flags (Basis nur ein Flag \texttt{ALU RESULT == 0})
+entweder in einem Register oder (über MDR) im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s.g. Flags (Basis nur ein Flag \texttt{ALU RESULT == 0})
 gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden um z. B. bedingte Spr{\"u}nge auszuf{\"u}hren.
 
 Abbildung 1 zeigt die uns vorliegende Basismaschine.
@@ -81,17 +81,17 @@ Wir haben das Hauptproblem in einige Teilprobleme aufgeteilt:
 \item Das sequenzielle Auslesen des Hauptspeichers
 \item Die Analyse der Daten
     \begin{enumerate}
-    \item Das erkennen der Startsequenz eines neuen Pakets
+    \item Das Erkennen der Startsequenz eines neuen Pakets
     \item Das Auslesen der Kanalnummer
     \end{enumerate}
-\item Das speichern der geforderten Daten im HS
+\item Das Speichern der geforderten Daten im HS
 \end{enumerate}
 
 \subsection{Sequenzielles Auslesen aus dem Hauptspeicher}
-Zun{\"a}chst m{\"u}ssen also die abgelegten Daten sequenziell ausgelsen werden. Da die Anzahl der in den Speicher geladenen Bits
+Zun{\"a}chst m{\"u}ssen also die abgelegten Daten sequenziell ausgelesen werden. Da die Anzahl der in den Speicher geladenen Bits
 bekannt ist (im Register \texttt{LNGTH} abgelegt), kann hierzu ein Mirkoprogramm implementiert werden, welches mithilfe
 einer Schleife alle Speicherzellen ausliest, bis die Anzahl der ausgelesenen Bits gleich der Zahl im Register \texttt{LGNTH} ist.
-Hierzu muss die Minimax-Maschine um ein Register erweitert werden, welches die akutelle Speicheradresse enth{\"a}lt (anfangs 0),
+Hierzu muss die Minimax-Maschine um ein Register erweitert werden, welches die aktuelle Speicheradresse enth{\"a}lt (anfangs 0),
 und mit wir \texttt{ADDR} bezeichnen werden. Bei jeder Iteration wird der Wert an der Adresse \texttt{ADDR} im Register 
 \texttt{MDR} gespeichert und steht somit dem Analyseprogramm zur Verf{\"u}gung. Nach der Analyse wird das Register \texttt{ADDR}
 inkrementiert und es wird zur{\"u}ck zum Schleifenkopf gesprungen (Siehe Abb. 1 im Anhang).
@@ -102,14 +102,14 @@ wurde noch kein Paket gefunden und es wird mit Hilfe einer Bitmaske ($1111_{2} =
 Wenn die Startsequenz gefunden wurde wird der Zustand verändert (zu 1) und es wird auf die nächste Zahl aus dem HS gewartet. 
 In der nächsten Zahl aus dem HS befindet sich die Kanalnummer. Diese wird mit einer weiteren Bitmaske ausgelesen
 und im Register \texttt{CHNL} abgelegt.
-Wurde sowohl ein Packetanfang als auch eine Kanalnummer gefunden, so wird nun die Länge des Datenfeldes gezählt und im Register \texttt{DATAC} gespeichert, bis erneut die Startsequenz gefunden wird.
+Wurde sowohl ein Paketanfang als auch eine Kanalnummer gefunden, so wird nun die Länge des Datenfeldes gezählt und im Register \texttt{DATAC} gespeichert, bis erneut die Startsequenz gefunden wird.
 Wurde eine neue Startsequenz gefunden so wird von der Länge des Daten 16 abgezogen (16 Bits Overhead des Headers) und
 es wird an das Speicherprogramm angegeben und es wird wieder in den zweiten Zustand (1) gewechselt.
 
 \subsection{Ablegen der Daten im Hauptspeicher}
 Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu z{\"a}hlen und in eine Tabelle im Hauptspeicher abzulegen.
 Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Register \texttt{OFFSET}), welche unsere Tabelle weit von den Eingabedaten
-im Hauptspeicher plaziert. Die Tabelle wird als einfaches indiziertes Array modelliert, in welchem die Kanalnummern die
+im Hauptspeicher platziert. Die Tabelle wird als einfaches indiziertes Array modelliert, in welchem die Kanalnummern die
 Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{CHNL}) wird also die Speicherzelle mit der Adresse 
 $\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{DATAC}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
 Abb. 3 im Anhang)
@@ -127,7 +127,7 @@ Abb. 3 im Anhang)
 
 \begin{itemize}
 \item [] \textbf{20.10.14} Besprechung des unseres Hardware Projekts
-\item [] \textbf{31.10.14} Abgabe Pflichetenheft mit grober Skizze der L{\"o}sung
+\item [] \textbf{31.10.14} Abgabe Pflichtenheft mit grober Skizze der L{\"o}sung
 \item [] \textbf{05.11.14} Besprechung des Pflichtenhefts und Anfang der Implementierung des Problems
 \item [] \textbf{14.11.14} Geplante Abgabe der Dokumentation des Projekts
 \item [] \textbf{20.11.14} Geplante Pr{\"a}sentation unserer Lösung
@@ -144,13 +144,13 @@ Abb. 3 im Anhang)
 \item \texttt{OLD}: Zwischenspeicher
 \item \texttt{CHNL}: Hält die aktuelle Kanalnummer
 \item \texttt{DATAC}: Zähler für Länge des Datenfeldes
-\item \texttt{STATE}: Variable zum Speicher des States des Analyseautomaten
+\item \texttt{STATE}: Variable zum speichern des Status vom Analyseautomaten
 \end{enumerate}
 
 \subsubsection{ALU-Operationen}
 
 \begin{enumerate}
-\item \texttt{A AND B}: Bitweise Undverknüpfung
+\item \texttt{A AND B}: Bitweise Und-Verknüpfung
 \end{enumerate}
 
 \subsubsection{Konstanten}
@@ -364,7 +364,7 @@ Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Da
 \subsection{Abb. 1: Basismaschine}
 \includegraphics[width=13cm]{schematics.png}
 
-\subsection{Abb. 2: Flussdiagramm des Speicherauslesepgrogramms}
+\subsection{Abb. 2: Flussdiagramm des Speicherausleseprogramms}
 \includegraphics[width=13cm]{readFromMemory.png}
 
 \subsection{Abb. 3: Flussdiagramm des Analyseprogramms}
@@ -393,7 +393,7 @@ Arbeitsteilung:
 \hline
 Robin Thrift &  Analyse-Algorithmus der ausgelesenen Daten \\
 \hline
-Clemens Pollak & und sequentieller Einlesealgorithmus \\
+Clemens Pollak & sequentieller Einlesealgorithmus \\
 \hline
 Max Boll & Speicheralgorithmus \\
 \hline
@@ -401,7 +401,7 @@ Max Boll & Speicheralgorithmus \\
 \leavevmode \\
 \\
 Dies beinhaltet auch die Dokumentation der jeweiligen Aufgabe (Da Git und LaTeX verwendet werden kann jedes 
-Teammitglied gefahrenlos zur Dokumentation beitragen).
+Teammitglied gefahrlos zur Dokumentation beitragen).
 
 
 \section{Hilfsmittel}
@@ -410,7 +410,7 @@ Wir haben folgende Quellen benutzt:
 \item Wikipedia: \dq Mask (computing)\dq \\ \string[\url{http://en.wikipedia.org/wiki/Mask_(computing)}\string]
 \item Wikipedia: \dq Bitweiser Operator\dq \\ \string[\url{http://de.wikipedia.org/wiki/Bitweiser_Operator}\string]
 \item Git VCS zur Quellcodeorganisation und Synchronisation
-\item GitHub zur Projektorgansation und Quellcodesynchronisation
+\item GitHub zur Projektorganisation und Quellcodesynchronisation
 \item Flowcharts: \string[\url{https://www.draw.io}]
 \item SRA Minimax-Simulator
 \item Informationsfolien (Aufgabenstellung)
