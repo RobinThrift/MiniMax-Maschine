@@ -88,7 +88,7 @@ Wir haben das Hauptproblem in einige Teilprobleme aufgeteilt:
 \end{enumerate}
 
 \subsection{Sequenzielles Auslesen aus dem Hauptspeicher}
-Zun{\"a}chst m{\"u}ssen also die abgelegten Daten sequenziell ausgelesen werden. Da die Anzahl der in den Speicher geladenen Bits
+Zun{\"a}chst m{\"u}ssen die abgelegten Daten sequenziell ausgelesen werden. Da die Anzahl der in den Speicher geladenen Bits
 bekannt ist (im Register \texttt{LNGTH} abgelegt), kann hierzu ein Mirkoprogramm implementiert werden, welches mithilfe
 einer Schleife alle Speicherzellen ausliest, bis die Anzahl der ausgelesenen Bits gleich der Zahl im Register \texttt{LGNTH} ist.
 Hierzu muss die Minimax-Maschine um ein Register erweitert werden, welches die aktuelle Speicheradresse enth{\"a}lt (anfangs 0),
