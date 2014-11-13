@@ -163,34 +163,45 @@ Abb. 3 im Anhang)
 \item \texttt{-16}: Headeroverflow
 \end{enumerate}
 
-\subsubsection{Multiplexer-Eingänge}
+\leavevmode \\
 
-ALUSel.A:
+\subsubsection{Multiplexer-Eingänge}
 
 \begin{table}
     \begin{tabular}{l|l}
     Adresse & Wert              \\
     \hline  					\\
-    000     & 0                 \\
-    001     & 1                 \\
-    010     & ACCU (Register)   \\
-    011     & OFFSET (Register) \\
-    100     & LNGTH             \\
+    0000     & 0                 \\
+    0001     & 1                 \\
+    0010     & ACCU (Register)   \\
+    0011     & 15                \\
+    0100     & 31                \\
+    0101     & STATE (Register)  \\
+    0110     & 32                \\
+    0111     & 14                \\
+    1000     & -16               \\
+    1001     & OFFSET (Register) \\
+    1010     & DATAC (Register)  \\
     \end{tabular}
+    \caption{ALUSel.A}
 \end{table}
-
-ALUSel.B:
 
 \begin{table}
     \begin{tabular}{l|l}
     Adresse & Wert            \\
     \hline                    \\
-    000     & MDR (Register)  \\
-    001     & AT (Register)   \\
-    010     & PC (Register)   \\
-    011     & ACCU (Register) \\
-    100     & OLD (Register)  \\
+    0000     & MDR (Register)  \\
+    0001     & AT (Register)   \\
+    0010     & PC (Register)   \\
+    0011     & ACCU (Register) \\
+    0100     & ADDR (Register) \\
+    0101     & COUNT (Register) \\
+    0110     & DATAC (Register) \\
+    0111     & CHNL (Register) \\
+    1000     & OLD (Register)  \\
+    1001     & 511             \\
     \end{tabular}
+    \caption{ALUSel.B}
 \end{table}
 
 
