@@ -18,6 +18,7 @@
 \section{Einleitung} 
 Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und mit der Realisierung von Algorithmen auf ihr. Dieses Thema soll im Rahmen des Hardware Praktikums bearbeitet werden und ist uns aus der Veranstaltung "'Grundlagen der Rechnerarchitektur"' bereits grundlegend bekannt.\\ Um unsere Vorbereitung auf dieses Projekt dokumentieren und strukturieren zu k{\"o}nnen, erstellen wir ein Pflichtenheft. Dieses Pflichtenheft wird nur unsere Vorbereitung beinhalten und es wird au{\ss}erdem eine weitere Dokumentation der Ergebnissen geben. Außerdem wird es w{\"a}hrend der Bearbeitung unseres Projects einen Leitfaden für uns darstellen, der die Implementierung der L{\"o}sung vereinfacht und beschleunigt.
 
+
 \section{Aufgabenstellung}
 Nach unserem Verst{\"a}ndniss ist das Ziel dieser Aufgabenstellung ein Algorithmus, welcher auf der Minimax-Maschine zu implementieren ist und eine sogenannte Paketanalyse betreibt. Dieser "'Paketanalyse"'-Algorithmus befasst sich mit dem Datenpaketen, welche im Speicher der Minimax-Maschine abgelegt sind.\\ Ein Datenpaket beginnt immer mit der Folge "'1110"' und besteht aus einem
 Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler L{\"a}nge. Der Kopf enth{\"a}lt die Kanalnummer zwischen der 32. und 47. Bitstelle. Zu einem Kanal k{\"o}nnen ein oder mehrere Pakete geh{\"o}ren, welche die selbe Kanalnummer haben.
@@ -71,8 +72,8 @@ aufgeführt sind.
 
 \newpage
 
-\section{Implementierungskonzept}
-Die vorliegende Aufgabenstellung kann in mehrere Teilprobleme zerlegt werden:
+\section{Finale Implementierung}
+Wir haben das Hauptproblem in einige Teilprobleme aufgeteilt:
 \begin{enumerate}
 \item Das sequenzielle Auslesen des Hauptspeichers
 \item Die Analyse der Daten
@@ -132,7 +133,10 @@ Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im A
 \item Einen exportierten Schaltplan der erweiterten Minimax-Maschine.
 \end{enumerate}
 
-\section{Projektdurchführung}
+\section{Projektdurchf{\"u}hrung}
+
+
+\subsection{}
 
 \subsection{Erweiterungen der Minimax-Basis-Maschine}
 
@@ -153,12 +157,34 @@ Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im A
 Wir haben nur eine Konstante verwendet, diejenige die in dem Register \texttt{OFFSET} gespeichert ist. Sie beträgt: <value>
 
 \subsubsection{Multiplexer-Eingänge}
+
 ALUSel.A:
 
-\begin{tabular}{|l|c|}
-\hline
-\hline
-\end{tabular}
+\begin{table}
+    \begin{tabular}{l|l}
+    Adresse & Wert              \\
+    \hline  					\\
+    000     & 0                 \\
+    001     & 1                 \\
+    010     & ACCU (Register)   \\
+    011     & OFFSET (Register) \\
+    100     & LNGTH             \\
+    \end{tabular}
+\end{table}
+
+ALUSel.B:
+
+\begin{table}
+    \begin{tabular}{l|l}
+    Adresse & Wert            \\
+    \hline                    \\
+    000     & MDR (Register)  \\
+    001     & AT (Register)   \\
+    010     & PC (Register)   \\
+    011     & ACCU (Register) \\
+    100     & OLD (Register)  \\
+    \end{tabular}
+\end{table}
 
 
 \section{Anhang mit Flussdiagrammen \\ geplanter Mikroprogramme}
