@@ -95,11 +95,14 @@ und mit wir \texttt{ADDR} bezeichnen werden. Bei jeder Iteration wird der Wert a
 inkrementiert und es wird zur{\"u}ck zum Schleifenkopf gesprungen (Siehe Abb. 1 im Anhang).
 
 \subsection{Analyse der Daten}
-Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden. Im ersten Zustand wurde noch kein Paket
-gefunden und es wird mit Hilfe einer Bitmaske ($1111_{2} = 15_{10}$) nach der Anfangssequenz gesucht. Wenn die Startsequenz gefunden wurde wird der Zustand
-verändert und es wird auf die nächste Zahl aus dem HS gewartet. Wurde bereits ein Paketanfang gefunden, wird nun die Kanalnummer
-extrahiert, im Register \texttt{ACCU} abgelegt und damit dem Speicherprogramm übergeben. Nach dem Speichervorgang überspringt ein weiteres Mikroprogramm
-die weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
+Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden (0, 1). Im ersten Zustand (0)
+wurde noch kein Paket gefunden und es wird mit Hilfe einer Bitmaske ($1111_{2} = 15_{10}$) nach der Anfangssequenz gesucht. 
+Wenn die Startsequenz gefunden wurde wird der Zustand verändert (zu 1) und es wird auf die nächste Zahl aus dem HS gewartet. 
+In der nächsten Zahl aus dem HS befindet sich die Kanalnummer. Diese wird mit einer weiteren Bitmaske ausgelesen
+und im Register \texttt{CHNL} abgelegt.
+Wurde sowohl ein Packetanfang als auch eine Kanalnummer gefunden, so wird nun die Länge des Datenfeldes gezählt und im Register \texttt{DATAC} gespeichert, bis erneut die Startsequenz gefunden wird.
+Wurde eine neue Startsequenz gefunden so wird von der Länge des Daten 16 abgezogen (16 Bits Overhead des Headers) und
+es wird an das Speicherprogramm angegeben und es wird wieder in den zweiten Zustand (1) gewechselt.
 
 \subsection{Ablegen der Daten im Hauptspeicher}
 Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu z{\"a}hlen und in eine Tabelle im Hauptspeicher abzulegen.

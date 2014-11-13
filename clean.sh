@@ -1,1 +1,1 @@
-rm ./docs/pflichtenheft.{aux,toc,log,pdf,out}
+rm ./docs/{pflichtenheft,dokumentation}.{aux,toc,log,pdf,out}
