@@ -82,7 +82,6 @@ Wir haben das Hauptproblem in einige Teilprobleme aufgeteilt:
     \item Das Auslesen der Kanalnummer
     \end{enumerate}
 \item Das speichern der geforderten Daten im HS
-\item Das Überspringen der nicht benötigten Bits des Paketes
 \end{enumerate}
 
 \subsection{Sequenzielles Auslsesen aus dem Hauptspeicher}
@@ -111,23 +110,6 @@ im Hauptspeicher plaziert. Die Tabelle wird als einfaches indiziertes Array mode
 Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{ACCU}) wird also die Speicherzelle mit der Adresse 
 $\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{LNGTH}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
 Abb. 3 im Anhang)
-
-\subsection{Überspringen der nicht benötigten Bits des Paketes}
-Da sowohl die Länge des Headers (80 Bit) als auch die Länge des Datenpaketes (im Register \texttt{LNGTH} abgelegt) bekannt ist, kann durch
-ein einfaches Abzählen der Bits der Rest des Paketes übersprungen werden. Hierzu wird das Zählregister \texttt{SKIPPED} zuerst mit den Restbits
-des Headers initialisiert (16 Bits) und dann werden solange 32 Bit zum Zählregister addiert, bis es gleich der Länge des Datenpaketes ist. Bei
-jeder Iteration wird dabei das Adressregister des Schleifenprogramms inkrementiert. Wenn die Länge des Datenfeldes 0 ist wird das Adressregister
-inkrementiert und das Programm zum Überspringen wird beendet (Siehe Abb. 4 im Anhang).
-
-Wie bereits in der Ist-Analyse beschrieben handelt es sich um eine 32-Bit Maschine, welche Daten als 32-Bit-Zahlen behandelt und nicht als 
-einzelne Bits. Dies erschwert die Suche nach der Anfangssequenz der Datenpakete ($1111_{2} = 15_{10}$). Um diese Sequenz in der 32-Bit-Zahl
-zu finden muss mit diesem Muster also maskiert werden. Dies geschieht {\"u}ber die bitweise Und-Verkn{\"u}pfung mit dem Muster. F{\"u}r die Minimax-Maschine
-heißt das konkret: 15 \& ZAHL bitweise Und-verkn{\"u}pfen. Folglich wird die Basismaschine um die Konstante 15 ($=1111_{2}$) und eine bitweise UND-Operation
-erweitert.\\
-Die Tabelle die als Ergebnis erstellt werden soll (siehe n{\"a}chster Abschnitt) kann nach erkennen der Anfangssequenz erstellt werden:
-Durch {\"u}berspringen der ersten 32 irrelevanten Bits wird die 16 Bit lange Kanalnummer ausgelesen und gespeichert. Dazu wird die in einem Register liegende l{\"a}nge des Datenpaketes geschrieben. Dieser Vorgang wiederholt sich.\\
-Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im Anhang nachvollzogen werden.
-
 
 \section{Angestrebte Projektergebnisse}
 \begin{enumerate}
