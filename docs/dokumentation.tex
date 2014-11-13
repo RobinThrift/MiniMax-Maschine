@@ -104,7 +104,7 @@ die weiteren Bits des Paketes (Siehe Abb. 2 im Anhang).
 \subsection{Ablegen der Daten im Hauptspeicher}
 Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu z{\"a}hlen und in eine Tabelle im Hauptspeicher abzulegen.
 Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Register \texttt{OFFSET}), welche unsere Tabelle weit von den Eingabedaten
-im Hauptspeicher plaziert. Die Tabelle wird als einfaches inndiziertes Array modeliert, in welchem die Kanalnummern die
+im Hauptspeicher plaziert. Die Tabelle wird als einfaches indiziertes Array modelliert, in welchem die Kanalnummern die
 Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{ACCU}) wird also die Speicherzelle mit der Adresse 
 $\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{LNGTH}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
 Abb. 3 im Anhang)
@@ -122,7 +122,7 @@ zu finden muss mit diesem Muster also maskiert werden. Dies geschieht {\"u}ber d
 heißt das konkret: 15 \& ZAHL bitweise Und-verkn{\"u}pfen. Folglich wird die Basismaschine um die Konstante 15 ($=1111_{2}$) und eine bitweise UND-Operation
 erweitert.\\
 Die Tabelle die als Ergebnis erstellt werden soll (siehe n{\"a}chster Abschnitt) kann nach erkennen der Anfangssequenz erstellt werden:
-Durch {\"u}berspringen der ersten 32 irrelevanten Bits wird die 16 Bit lange Kanalnummer ausgelesen und gespeichert. Dazu wird die in einem Register liegende l{\"a}nge des Datenpacketes geschrieben. Dieser Vorgang wiederholt sich.\\
+Durch {\"u}berspringen der ersten 32 irrelevanten Bits wird die 16 Bit lange Kanalnummer ausgelesen und gespeichert. Dazu wird die in einem Register liegende l{\"a}nge des Datenpaketes geschrieben. Dieser Vorgang wiederholt sich.\\
 Eine genaue Implementierung kann anhand eines Flow-Diagramms in RT-Notation im Anhang nachvollzogen werden.
 
 
