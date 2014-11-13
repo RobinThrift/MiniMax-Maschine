@@ -110,8 +110,8 @@ es wird an das Speicherprogramm angegeben und es wird wieder in den zweiten Zust
 Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu z{\"a}hlen und in eine Tabelle im Hauptspeicher abzulegen.
 Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Register \texttt{OFFSET}), welche unsere Tabelle weit von den Eingabedaten
 im Hauptspeicher plaziert. Die Tabelle wird als einfaches indiziertes Array modelliert, in welchem die Kanalnummern die
-Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{ACCU}) wird also die Speicherzelle mit der Adresse 
-$\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{LNGTH}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
+Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{CHNL}) wird also die Speicherzelle mit der Adresse 
+$\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{DATAC}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
 Abb. 3 im Anhang)
 
 \section{Angestrebte Projektergebnisse}
