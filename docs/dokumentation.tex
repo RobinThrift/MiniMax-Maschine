@@ -61,8 +61,11 @@ Konstanten als auch die Register an, welche zur ALU durchgeschaltet werden k{\"o
 entweder in einem Register oder (über MDR) im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s. g. Flags (Basis nur ein Flag \texttt{ALU RESULT == 0})
 gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden um z. B. bedingte Spr{\"u}nge auszuf{\"u}hren.
 
+Abbildung 1 zeigt die uns vorliegende Basismaschine.
 
-Die uns vorliegende Minimax-Maschine arbeitet mit 32-Bit und speichert Werte mit 32-Bit in den Registern und im HS.
+\leavevmode \\
+
+Die uns vorliegende Minimax-Maschine arbeitet mit 32-Bit und speichert Werte mit 32-Bit in den Registern und im HS (\dq Little Endian\dq ).
 Alle ALU-Operationen werden folglich alle mit 32-Bit ausgef{\"u}hrt. Dies stellt sich jedoch f{\"u}r unser Aufgabe als
 Hindernis, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS und den Registern jedoch nur als
 32-Bit Zahlen auslesen k{\"o}nnen und nicht als einzelne Bits.
@@ -182,17 +185,19 @@ ALUSel.B:
 
 \section{Anhang}
 
-\subsection{Abb. 1: Flussdiagramm des Speicherauslesepgrogramms}
+\subsection{Abb. 1: Basismaschine}
+\includegraphics[width=13cm]{schematics.png}
 
+\subsection{Abb. 2: Flussdiagramm des Speicherauslesepgrogramms}
 \includegraphics[width=13cm]{readFromMemory.png}
 
-\subsection{Abb. 2: Flussdiagramm des Analyseprogramms}
+\subsection{Abb. 3: Flussdiagramm des Analyseprogramms}
 \includegraphics[width=13cm]{analyseData.png}
 
-\subsection{Abb. 3: Flussdiagramm des Speicherprogramms}
+\subsection{Abb. 4: Flussdiagramm des Speicherprogramms}
 \includegraphics[width=13cm]{saveToHS.png}
 
-\subsection{Abb. 4: Flussdiagramm des Programms zum Überspringen des Datenfeldes}
+\subsection{Abb. 5: Flussdiagramm des Programms zum Überspringen des Datenfeldes}
 \includegraphics[width=10cm]{skipBits.png}
 
 \newpage
