@@ -87,14 +87,12 @@ Wir haben das Hauptproblem in einige Teilprobleme aufgeteilt:
 \item Das Speichern der geforderten Daten im HS
 \end{enumerate}
 
-\subsection{Sequenzielles Auslesen aus dem Hauptspeicher}
-Zun{\"a}chst m{\"u}ssen die abgelegten Daten sequenziell ausgelesen werden. Da die Anzahl der in den Speicher geladenen Bits
-bekannt ist (im Register \texttt{LNGTH} abgelegt), kann hierzu ein Mikroprogramm implementiert werden, welches mithilfe
-einer Schleife alle Speicherzellen ausliest, bis die Anzahl der ausgelesenen Bits gleich der Zahl im Register \texttt{LGNTH} ist.
-Hierzu muss die Minimax-Maschine um ein Register erweitert werden, welches die aktuelle Speicheradresse enth{\"a}lt (anfangs 0),
-und mit wir \texttt{ADDR} bezeichnen werden. Bei jeder Iteration wird der Wert an der Adresse \texttt{ADDR} im Register 
-\texttt{MDR} gespeichert und steht somit dem Analyseprogramm zur Verf{\"u}gung. Nach der Analyse wird das Register \texttt{ADDR}
-inkrementiert und es wird zur{\"u}ck zum Schleifenkopf gesprungen (Siehe Abb. 1 im Anhang).
+\subsection{Auslesen aus dem Hauptspeicher}
+Damit die Maschine korrekt terminiert muss zun{"a}chst die gegebene Gesamtlänge der zu Analysierenden Daten überprüft werden. Sie liegt im Register \texttt{COUNT}.
+Der Algorithmus l["a]d eine neue 32 Bit Folge und dekrementiert das Register \texttt{COUNT} danach um 32. Wenn das Register Null enth{"a}lt terminiert damit das gesamte Programm. Ansonsten werden die Daten analysiert.\\
+Die Überprüfung wird nach jeder Analyse wiederholt.
+
+ 
 
 \subsection{Analyse der Daten}
 Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden (0, 1). Im ersten Zustand (0)
