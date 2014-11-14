@@ -17,14 +17,14 @@
 \newpage
 
 \section{Einleitung} 
-Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und mit der Realisierung von Algorithmen auf ihr. Dieses Thema soll im Rahmen des Hardware Praktikums bearbeitet werden und ist uns aus der Veranstaltung "'Grundlagen der Rechnerarchitektur"' bereits grundlegend bekannt.\\ Um unsere Vorbereitung auf dieses Projekt dokumentieren und strukturieren zu k{\"o}nnen, erstellen wir ein Pflichtenheft. Dieses Pflichtenheft wird nur unsere Vorbereitung beinhalten und es wird au{\ss}erdem eine weitere Dokumentation der Ergebnissen geben. Außerdem wird es w{\"a}hrend der Bearbeitung unseres Projects einen Leitfaden für uns darstellen, der die Implementierung der L{\"o}sung vereinfacht und beschleunigt.
+Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und mit der Realisierung von Algorithmen auf ihr. Dieses Thema soll im Rahmen des Hardware Praktikums bearbeitet werden und ist uns aus der Veranstaltung "'Grundlagen der Rechnerarchitektur"' bereits grundlegend bekannt.\\ Dieses Dokument soll eine Dokumentation darstellen, sie soll für das bessere Verst{\"a}ndniss unserer Implementierung dienen.
 
 
 \section{Aufgabenstellung}
 Nach unserem Verst{\"a}ndniss ist das Ziel dieser Aufgabenstellung ein Algorithmus, welcher auf der Minimax-Maschine zu implementieren ist und eine sogenannte Paketanalyse betreibt. Dieser "'Paketanalyse"'-Algorithmus befasst sich mit dem Datenpaketen, welche im Speicher der Minimax-Maschine abgelegt sind.\\ Ein Datenpaket beginnt immer mit der Folge "'1110"' und besteht aus einem
 Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler L{\"a}nge. Der Kopf enth{\"a}lt die Kanalnummer zwischen der 32. und 47. Bitstelle. Zu einem Kanal k{\"o}nnen ein oder mehrere Pakete geh{\"o}ren, welche die selbe Kanalnummer haben.
-Die Anzahl Bits, welche in den Speicher geladen werden, welche überprüft werden müssen wird als bekannt vorausgesetzt und wird in ein entsprechendes Register vorgeladen.\\
-Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb der Speicherfelder der einzelnen Pakete befindet. Diese Datentabelle soll den Kanalnummern die L{\"a}ngen der jeweiligen Datenteile aller Pakete zuordenen um dann später exportiert zu werden. Diese Aufgabenstellung soll mit dem Minimax-Simulator simuliert und getestet werden. Die Maschine kann durch vorgegebene Bauteile erweitert werden, was sich aber auf die Bewertung auswirkt. Der Algorithmus wird in Form der sogenannten Steuertabelle implementiert und soll außerdem als Flussdiagramm abgegeben werden.
+Die Anzahl der Bits, welche überprüft werden müssen wird als bekannt vorausgesetzt und wird in ein entsprechendes Register vorgeladen.\\
+Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb der Speicherfelder der einzelnen Pakete befindet. Diese Datentabelle soll den Kanalnummern die L{\"a}ngen der jeweiligen Datenteile aller Pakete zuordenen, um dann später exportiert zu werden. Diese Aufgabenstellung soll mit dem Minimax-Simulator simuliert und getestet werden. Die Maschine kann durch vorgegebene Bauteile erweitert werden, was sich aber auf die Bewertung auswirkt. Der Algorithmus wird in Form der sogenannten Steuertabelle implementiert und soll außerdem als Flussdiagramm abgegeben werden.
 
 \newpage
 
@@ -52,7 +52,6 @@ ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eing
 \end{enumerate}
 
 \leavevmode \\
-
 Dabei sind die m{\"o}glichen Operationen auf die in der ALU implementieren
 Operationen beschr{\"a}nkt (Basis: \texttt{ADD}, \texttt{SUB.B}, \texttt{TRANS.A}, \texttt{TRANS.B}). Die ALU kannn mit weiteren Operationen,
 wie z. B. dem bitweisen UND, erg{\"a}nzt werden.\\
@@ -61,17 +60,14 @@ und der ALU muss {\"u}ber die \texttt{ALU Ctrl}-Leitung der Code f{\"u}r die Ope
 Konstanten als auch die Register an, welche zur ALU durchgeschaltet werden k{\"o}nnen. Das Ergebnis der Operation kann
 entweder in einem Register oder (über MDR) im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s.g. Flags (Basis nur ein Flag \texttt{ALU RESULT == 0})
 gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden um z. B. bedingte Spr{\"u}nge auszuf{\"u}hren.
-
 Abbildung 1 zeigt die uns vorliegende Basismaschine.
 
 \leavevmode \\
-
 Die uns vorliegende Minimax-Maschine arbeitet mit 32-Bit und speichert Werte mit 32-Bit in den Registern und im HS (\dq Little Endian\dq ).
 Alle ALU-Operationen werden folglich alle mit 32-Bit ausgef{\"u}hrt. Dies stellt sich jedoch f{\"u}r unser Aufgabe als
 Hindernis, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS und den Registern jedoch nur als
 32-Bit Zahlen auslesen k{\"o}nnen und nicht als einzelne Bits.
-
-Folglich wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept'" n{\"a}her
+Folglich wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept"' n{\"a}her
 aufgeführt sind. Abbildung 6 zeigt den Aufbau der erweiterten Maschine.
 
 \newpage
