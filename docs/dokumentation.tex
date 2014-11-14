@@ -23,23 +23,23 @@ Unser gew{\"a}hltes Thema befasst sich mit der Minimax-Maschine und der Realisie
 \section{Aufgabenstellung}
 Nach unserer Auffassung ist das Ziel dieser Aufgabenstellung ein Algorithmus, welcher auf der Minimax-Maschine zu implementieren ist und eine sogenannte Paketanalyse betreibt. Dieser "'Paketanalyse"'-Algorithmus befasst sich mit den Datenpaketen, die im Speicher der Minimax-Maschine abgelegt sind.\\ Ein Datenpaket beginnt immer mit der Folge "'1110"' und besteht aus einem
 Kopf mit einer L{\"a}nge von 80 Bits und einem Datenteil mit variabler L{\"a}nge. Der Kopf enth{\"a}lt die Kanalnummer zwischen der 32. und 47. Bitstelle. Zu einem Kanal k{\"o}nnen ein oder mehrere Pakete geh{\"o}ren, die dieselbe Kanalnummer haben.
-Die Anzahl der Bits, die überprüft werden müssen wird als bekannt vorausgesetzt und wird in ein entsprechendes Register vorgeladen.\\
+Die Anzahl der Bits, die überprüft werden müssen, wird als bekannt vorausgesetzt und in ein entsprechendes Register vorgeladen.\\
 Nun soll der Algorithmus eine Datentabelle anlegen, welche sich au{\ss}erhalb der Speicherfelder der einzelnen Pakete befindet. Diese Datentabelle soll den Kanalnummern die L{\"a}ngen der jeweiligen Datenteile aller Pakete zuordenen, um dann später exportiert zu werden. Diese Aufgabenstellung soll mit dem Minimax-Simulator simuliert und getestet werden. Die Maschine kann durch vorgegebene Bauteile erweitert werden, was sich aber auf die Bewertung auswirkt. Der Algorithmus wird in Form der sogenannten Steuertabelle implementiert und soll außerdem als Flussdiagramm abgegeben werden.
 
 \newpage
 
 \section{Ist-Analyse der Basis-Maschine}
 
-Die Minimax-Maschine ist ein minimales Rechensystem welches aus einfachen Registern (Basis: \texttt{ACCU}, \texttt{PC}, \texttt{IR}, \texttt{MDR}, \texttt{MAR};
-weitere k{\"o}nnen hinzuge{\"u}fgt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
-ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eingang mindestens die ALU und hat zusätzlich einen Eingang, der den Schreibzugriff regelt.\\
+Die Minimax-Maschine ist ein minimales Rechensystem, das aus einfachen Registern (Basis: \texttt{ACCU}, \texttt{PC}, \texttt{IR}, \texttt{MDR}, \texttt{MAR};
+weitere k{\"o}nnen hinzugef{\"u}gt werden), einer arithmetisch-logischen Einheit (ALU) und einem Hauptspeicher (HS) aufgebaut
+ist und durch ein Mikroprogramm gesteuert wird. Jedes dieser Register hat als Eingang mindestens die ALU und zusätzlich einen Eingang, der den Schreibzugriff regelt.\\
 \begin{enumerate}
-\item \texttt{ACCU}: Abk{\"u}rzung f{\"u}r "'Accumulator"' ein Zwischenspeicher, um mit \texttt{MDR} Operationen durchführen zu k{\"o}nnen.
+\item \texttt{ACCU}: Abk{\"u}rzung f{\"u}r "'Accumulator"', ein Zwischenspeicher, um mit \texttt{MDR} Operationen durchführen zu k{\"o}nnen.
 \item \texttt{PC}: Abk{\"u}rzung f{\"u}r "'program counter"', enthält den Programmzähler, welcher den nächsten Befehl beeinflusst
 \item \texttt{IR}: Abk{\"u}rzung f{\"u}r "'instruction register"', enthält Opcode(8 Bit) und Adressteil(24 bit).
-\item \texttt{MDR}: Abk{\"u}rzung f{\"u}r "'memory data register"', enthält je nach Einstellung des Multiplexers texttt{MDR.Sel}, verschiede Daten entweder aus Hauptspecher oder aus der \texttt{ALU}.
-\item \texttt{MAR}: Abk{\"u}rzung f{\"u}r "'memory adress register"', enth{\"a}lt die Speicheradresse an der aus dem Hauptspeicher Daten geladen oder geschrieben werde sollen.
-\item \texttt{HS}: Abk{\"u}rzung f{\"u}r "'Hauptspeicher"', er wird mit 24-Bit durch \texttt{MAR} adressiert und gibt eine 32-Bit Zahl zur{\"u}ck. Auf die selbe Art funktioniert schreiben einer 32-Bit Zahl nat{\"u}rlich auch.
+\item \texttt{MDR}: Abk{\"u}rzung f{\"u}r "'memory data register"', enthält je nach Einstellung des Multiplexers texttt{MDR.Sel}, verschiedene Daten, entweder aus dem Hauptspeicher oder aus der \texttt{ALU}.
+\item \texttt{MAR}: Abk{\"u}rzung f{\"u}r "'memory adress register"', enth{\"a}lt die Speicheradresse, an der aus dem Hauptspeicher Daten geladen oder geschrieben werden sollen.
+\item \texttt{HS}: Abk{\"u}rzung f{\"u}r "'Hauptspeicher"', er wird mit 24-Bit durch \texttt{MAR} adressiert und gibt eine 32-Bit Zahl zur{\"u}ck. Auf dieselbe Art funktioniert das Schreiben einer 32-Bit Zahl nat{\"u}rlich auch.
 \end{enumerate}
 
 \leavevmode \\
@@ -54,20 +54,20 @@ ist und durch ein Mikropgramm gesteuert wird. Jedes dieser Register hat als Eing
 \leavevmode \\
 Dabei sind die m{\"o}glichen Operationen auf die in der ALU implementieren
 Operationen beschr{\"a}nkt (Basis: \texttt{ADD}, \texttt{SUB.B}, \texttt{TRANS.A}, \texttt{TRANS.B}). Die ALU kannn mit weiteren Operationen,
-wie z. B. dem bitweisen UND, erg{\"a}nzt werden.\\
-Um eine Operation auszuf{\"u}hren m{\"u}ssen {\"u}ber die Multiplexer \texttt{ALUSel.A} und \texttt{AluSel.B} zwei Operanden ausgew{\"a}hlt werden
-und der ALU muss {\"u}ber die \texttt{ALU Ctrl}-Leitung der Code f{\"u}r die Operation {\"u}bergben werden. An den Multiplexern liegen sowohl
+wie z.B. dem bitweisen UND, erg{\"a}nzt werden.\\
+Um eine Operation auszuf{\"u}hren, m{\"u}ssen {\"u}ber die Multiplexer \texttt{ALUSel.A} und \texttt{AluSel.B} zwei Operanden ausgew{\"a}hlt werden
+und der ALU muss {\"u}ber die \texttt{ALU Ctrl}-Leitung der Code f{\"u}r die Operation {\"u}bergeben werden. An den Multiplexern liegen sowohl
 Konstanten als auch die Register an, welche zur ALU durchgeschaltet werden k{\"o}nnen. Das Ergebnis der Operation kann
-entweder in einem Register oder (über MDR) im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen s.g. Flags (Basis nur ein Flag \texttt{ALU RESULT == 0})
-gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden um z. B. bedingte Spr{\"u}nge auszuf{\"u}hren.
+entweder in einem Register oder (über MDR) im HS (Adresse im Register \texttt{MAR}) gespeichert werden. Zus{\"a}tzlich k{\"o}nnen sog. Flags (Basis nur ein Flag \texttt{ALU RESULT == 0})
+gesetzt werden, welche zur{\"u}ck zur Control Unit (CU) geleitet werden, um z.B. bedingte Spr{\"u}nge auszuf{\"u}hren.
 Abbildung 1 zeigt die uns vorliegende Basismaschine.
 
 \leavevmode \\
 Die uns vorliegende Minimax-Maschine arbeitet mit 32-Bit und speichert Werte mit 32-Bit in den Registern und im HS (\dq Little Endian\dq ).
-Alle ALU-Operationen werden folglich alle mit 32-Bit ausgef{\"u}hrt. Dies stellt sich jedoch f{\"u}r unser Aufgabe als
-Hindernis, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS und den Registern jedoch nur als
+Alle ALU-Operationen werden folglich mit 32-Bit ausgef{\"u}hrt. Dies stellt sich jedoch f{\"u}r unsere Aufgabe als
+Hindernis dar, da wir die Daten bitweise untersuchen m{\"u}ssen, Daten aus dem HS und den Registern jedoch nur als
 32-Bit Zahlen auslesen k{\"o}nnen und nicht als einzelne Bits.
-Folglich wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept"' n{\"a}her
+Daher wird die Basismaschine um einige Konstanten, Operationen und Register erweitert werden müssen, welche im "'Implementierungskonzept"' n{\"a}her
 aufgeführt sind. Abbildung 6 zeigt den Aufbau der erweiterten Maschine.
 
 \newpage
@@ -85,35 +85,35 @@ Wir haben das Hauptproblem in einige Teilprobleme aufgeteilt:
 \end{enumerate}
 
 \subsection{Auslesen aus dem Hauptspeicher}
-Damit die Maschine korrekt terminiert muss zun{"a}chst die gegebene Gesamtlänge der zu Analysierenden Daten überprüft werden. Sie liegt im Register \texttt{COUNT}.
-Der Algorithmus l{"a}d eine neue 32 Bit Folge und dekrementiert das Register \texttt{COUNT} danach um 32. Wenn das Register Null enth{"a}lt terminiert damit das gesamte Programm. Ansonsten werden die Daten analysiert.\\
+Damit die Maschine korrekt terminiert, muss zun{"a}chst die gegebene Gesamtlänge der zu analysierenden Daten überprüft werden. Sie liegt im Register \texttt{COUNT}.
+Der Algorithmus l{"a}d eine neue 32-Bit-Folge und dekrementiert das Register \texttt{COUNT} danach um 32. Wenn das Register Null enth{"a}lt, terminiert damit das gesamte Programm. Ansonsten werden die Daten analysiert.\\
 Die Überprüfung wird nach jeder Analyse wiederholt.
 
  
 
 \subsection{Analyse der Daten}
 Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden (0, 1). Im ersten Zustand (0)
-wurde noch kein Paket gefunden und es wird mit Hilfe einer Bitmaske ($1111_{2} = 15_{10}$) nach der Anfangssequenz gesucht. 
-Wenn die Startsequenz gefunden wurde wird der Zustand verändert (zu 1) und es wird auf die nächste Zahl aus dem HS gewartet. 
+wurde noch kein Paket gefunden und es wird mithilfe einer Bitmaske ($1111_{2} = 15_{10}$) nach der Anfangssequenz gesucht. 
+Wenn die Startsequenz gefunden wurde, wird der Zustand verändert (zu 1) und es wird auf die nächste Zahl aus dem HS gewartet. 
 In der nächsten Zahl aus dem HS befindet sich die Kanalnummer. Diese wird mit einer weiteren Bitmaske ausgelesen
 und im Register \texttt{CHNL} abgelegt.
 Wurde sowohl ein Paketanfang als auch eine Kanalnummer gefunden, so wird nun die Länge des Datenfeldes gezählt und im Register \texttt{DATAC} gespeichert, bis erneut die Startsequenz gefunden wird.
-Wurde eine neue Startsequenz gefunden so wird von der Länge des Daten 16 abgezogen (16 Bits Overhead des Headers) und
-es wird an das Speicherprogramm angegeben und es wird wieder in den zweiten Zustand (1) gewechselt.
+Wurde eine neue Startsequenz gefunden, so wird von der Länge des Daten 16 abgezogen (16 Bits Overhead des Headers), 
+es wird an das Speicherprogramm abgegeben und wieder in den zweiten Zustand (1) gewechselt.
 
 \subsection{Ablegen der Daten im Hauptspeicher}
-Ziel der Analyse ist es die Länge aller Datenpakete für jeden Kanal zu z{\"a}hlen und in eine Tabelle im Hauptspeicher abzulegen.
-Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Register \texttt{OFFSET}), welche unsere Tabelle weit von den Eingabedaten
+Ziel der Analyse ist es, die Länge aller Datenpakete für jeden Kanal zu z{\"a}hlen und in einer Tabelle im Hauptspeicher abzulegen.
+Dazu wird zunächst eine Anfangsadresse (Offset) gewählt (Register \texttt{OFFSET}), welche unsere Tabelle weit weg von den Eingabedaten
 im Hauptspeicher platziert. Die Tabelle wird als einfaches indiziertes Array modelliert, in welchem die Kanalnummern die
 Schlüssel sind. Nach dem Auslesen der Kanalnummer (abgelegt im Register \texttt{CHNL}) wird also die Speicherzelle mit der Adresse 
-$\texttt{ACCU} + \texttt{OFFSET}$ mit Datenlänge (Register \texttt{DATAC}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
+$\texttt{ACCU} + \texttt{OFFSET}$ mit der Datenlänge (Register \texttt{DATAC}) addiert und an der gleichen Stelle wieder abgelegt (Siehe
 Abb. 3 im Anhang)
 
 \newpage
 
 \section{Angestrebte Projektergebnisse}
 \begin{enumerate}
-\item Die Tabelle, in der die einzelnen Kanalnummern und Paketl{\"a}ngen enthalten sind. (Als exportierte Speicherdatei)
+\item Die Tabelle, in der die einzelnen Kanalnummern und Paketl{\"a}ngen enthalten sind. (als exportierte Speicherdatei)
 \item Eine Dokumentation, welche unserer Implementierung im Detail beschreibt und m{\"o}glicherweise schwierige Stellen verst{\"a}ndlich erl{\"a}utert.
 \item Einen exportierten Schaltplan der erweiterten Minimax-Maschine.
 \end{enumerate}
@@ -134,7 +134,7 @@ Max Boll & Speicheralgorithmus \\
 \end{tabular}
 \leavevmode \\
 \\
-Dies beinhaltet auch die Dokumentation der jeweiligen Aufgabe (Da Git und LaTeX verwendet werden kann jedes 
+Dies beinhaltet auch die Dokumentation der jeweiligen Aufgabe (Da Git und LaTeX verwendet werden, kann jedes 
 Teammitglied gefahrlos zur Dokumentation beitragen).
 
 
@@ -143,8 +143,8 @@ Teammitglied gefahrlos zur Dokumentation beitragen).
 \subsection{Zeitlicher Ablauf der Projektarbeit}
 
 \begin{itemize}
-\item [] \textbf{20.10.14} Besprechung des unseres Hardware Projekts
-\item [] \textbf{31.10.14} Abgabe Pflichtenheft mit grober Skizze der L{\"o}sung
+\item [] \textbf{20.10.14} Besprechung unseres Hardware-Projekts
+\item [] \textbf{31.10.14} Abgabe des Pflichtenhefts mit grober Skizze der L{\"o}sung
 \item [] \textbf{05.11.14} Besprechung des Pflichtenhefts und Anfang der Implementierung des Problems
 \item [] \textbf{14.11.14} Geplante Abgabe der Dokumentation des Projekts
 \item [] \textbf{20.11.14} Geplante Pr{\"a}sentation unserer Lösung
@@ -155,19 +155,19 @@ Teammitglied gefahrlos zur Dokumentation beitragen).
 \subsubsection{Register}
 
 \begin{enumerate}
-\item \texttt{COUNT}: Gesammtl{\"a}nge der Auszuwertenden Daten
-\item \texttt{OFFSET}: F{\"u}r den Offsetwert, der bei der Speicherung der Längen addiert wird
-\item \texttt{ADDR}: Ein Register f{\"u}r die aktuelle Adresse
+\item \texttt{COUNT}: Gesamtl{\"a}nge der auszuwertenden Daten
+\item \texttt{OFFSET}: f{\"u}r den Offsetwert, der bei der Speicherung der Längen addiert wird
+\item \texttt{ADDR}: ein Register f{\"u}r die aktuelle Adresse
 \item \texttt{OLD}: Zwischenspeicher
-\item \texttt{CHNL}: Hält die aktuelle Kanalnummer
+\item \texttt{CHNL}: hält die aktuelle Kanalnummer
 \item \texttt{DATAC}: Zähler für Länge des Datenfeldes
-\item \texttt{STATE}: Variable zum speichern des Status vom Analyseautomaten
+\item \texttt{STATE}: Variable zum Speichern des Status vom Analyseautomaten
 \end{enumerate}
 
 \subsubsection{ALU-Operationen}
 
 \begin{enumerate}
-\item \texttt{A AND B}: Bitweise Und-Verknüpfung
+\item \texttt{A AND B}: bitweise Und-Verknüpfung
 \end{enumerate}
 
 \subsubsection{Konstanten}
@@ -226,13 +226,13 @@ Teammitglied gefahrlos zur Dokumentation beitragen).
 
 \begin{enumerate}
 \item \textbf{reg (Anzahl der ergänzten Minimaxregister): } 7 Register
-\item \textbf{const (Anzahl der Konstantenten): } 7 Konstanten
-\item \textbf{alu\_add (Alle erg{\"a}nzten Alu Befehle):} 3 Befehle
-\item \textbf{alu\_use (Alle verwendteten Alu Befehle):} 3 Befehle
+\item \textbf{const (Anzahl der Konstanten): } 7 Konstanten
+\item \textbf{alu\_add (alle erg{\"a}nzten ALU-Befehle):} 3 Befehle
+\item \textbf{alu\_use (alle verwendteten ALU-Befehle):} 3 Befehle
 \end{enumerate}
 
 \subsubsection{Laufzeit}
-Mit der Laufzeit sind hier die Takte, die die Minimax-Maschine braucht um unser Ergebnis zu erzeugen, gemeint. $t_{bench}$ betr{\"a}gt in unserem Fall 3019 Takte.\\
+Mit der Laufzeit sind hier die Takte, die die Minimax-Maschine braucht, um unser Ergebnis zu erzeugen, gemeint. $t_{bench}$ betr{\"a}gt in unserem Fall 3019 Takte.\\
 
 \textbf{Berechnung:} $t_{bewertet} = 3019 * (1 + 0,1*7 + 0,015*3 + 0,05 * 7) = 6324,8$ Takte
 
@@ -245,7 +245,7 @@ Die Algorithmuslänge wird in Zeilen angegeben.\\
 \newpage
 
 \subsection{Programmdruchlauf}
-Als Beispiel werden hier die ersten 44 Bytes des zweiten Benchmarks untersucht (Für die vollständige Steuertabelle siehe Abbildung 7).
+Als Beispiel werden hier die ersten 44 Bytes des zweiten Benchmarks untersucht (für die vollständige Steuertabelle siehe Abbildung 7).
 
 \leavevmode \\
 
@@ -265,17 +265,17 @@ Als Beispiel werden hier die ersten 44 Bytes des zweiten Benchmarks untersucht (
     9     & 16843009  \\
     A     & 16843022  \\
     \end{tabular}
-    \caption{Ersten 3200 Bit des zweiten Benchmarks interpretiert als 32-Bit-Zahlen}
+    \caption{die ersten 3200 Bit des zweiten Benchmarks interpretiert als 32-Bit-Zahlen}
 \end{table}
 
 
 \includegraphics[width=16cm]{listing/row1-4.png}
 \leavevmode \\
 
-Zunächst wird die Adresse gesetzt (anfangs 0) und der Wert an der Adresse ausgelesen und in \texttt{MDR} abgelegt.
-Dies ist der Schleifenkopf, und \texttt{ADDR} entspricht der Lauf-Variable.
+Zunächst wird die Adresse gesetzt (anfangs 0), der Wert an der Adresse ausgelesen und in \texttt{MDR} abgelegt.
+Dies ist der Schleifenkopf und \texttt{ADDR} entspricht der Lauf-Variable.
 Wir ziehen 32 vom \texttt{COUNT}-Register ab, welches bereits mit der Anzahl Bits des Benchmarks gefüllt wurde.
-Ist \texttt{COUNT} Null, ist das Programm vorbei, wenn nicht springen wir zum Analyseprogramm.
+Ist \texttt{COUNT} Null, ist das Programm vorbei, wenn nicht, springen wir zum Analyseprogramm.
 Im ersten Durchlauf liegt nun im Register \texttt{MDR} die Zahl 16843022.
 
 \leavevmode \\
@@ -283,36 +283,35 @@ Im ersten Durchlauf liegt nun im Register \texttt{MDR} die Zahl 16843022.
 \leavevmode \\
 
 Entsprechend des Zustands wird hier unterschieden zwischen Kanalnummer- und Startsequenzsuche. Im ersten Durchlauf
-wird natürlich erstmal eine Startsequenz gesucht, und der Zustand ist Null (0).
+wird natürlich zunächst einmal eine Startsequenz gesucht und der Zustand ist Null (0).
 
 \leavevmode \\
 \includegraphics[width=16cm]{listing/row7-8.png}
 \leavevmode \\
 
 Nun wird die Bitmaske auf den Wert aus \texttt{MDR} angewendet und anschließend die Startsequenz abgezogen, um
-zu überprüfen, ob diese im Wert enthalten ist. Ist dies der Fall, so springen wir zur Zeile mit dem Label \dq new\dq
-da es sich um ein neues Datenpaket handelt. In diesem konkreten Fall wenden wir also $16843022 \text{ AND } 15$ an, und finden
+zu überprüfen, ob diese im Wert enthalten ist. Ist dies der Fall, so springen wir zur Zeile mit dem Label \dq new\dq, 
+da es sich um ein neues Datenpaket handelt. In diesem konkreten Fall wenden wir also $16843022 \text{ AND } 15$ an und finden
 die Startsequenz.
 
 \leavevmode \\
 \includegraphics[width=16cm]{listing/row9-10.png}
 \leavevmode \\
 
-Hier wird die Datenlänge überprüft, welches wir jedoch für den Moment ignorieren können, wir überspringen im ersten Fall auch den Speicheralgorithmus, 
-und machen mit Zeile 18 weiter:
+Hier wird die Datenlänge überprüft, die wir jedoch für den Moment ignorieren können, wir überspringen im ersten Fall auch den Speicheralgorithmus und machen mit Zeile 18 weiter:
 
 \leavevmode \\
 \includegraphics[width=16cm]{listing/row18-19.png}
 \leavevmode \\
 
-Da wir die Startsequenz gefunden haben setzen wir nun den Zustand auf 1 und initialisieren die Datenlänge mit 0. Danach springt
+Da wir die Startsequenz gefunden haben, setzen wir nun den Zustand auf 1 und initialisieren die Datenlänge mit 0. Danach springt
 das Programm zurück zur Schleife:
 
 \leavevmode \\
 \includegraphics[width=16cm]{listing/row1-5.png}
 \leavevmode \\
 
-In Zeile 5 wird die Adresse im Register \texttt{ADDR} inkrementiert und wir springen zum Schleifenkopf zurück um die nächste
+In Zeile 5 wird die Adresse im Register \texttt{ADDR} inkrementiert und wir springen zum Schleifenkopf zurück, um die nächste
 Iteration zu starten. Wir laden nun den Wert 16842760 aus dem Speicher und übergeben ihn dem Analyseprogramm.
 
 \leavevmode \\
@@ -371,9 +370,9 @@ mitgezählt haben) und übergeben dem Speicherprogramm:
 \includegraphics[width=16cm]{listing/row11-17.png}
 \leavevmode \\
 
-Zunächst wird die aktuelle Adresse zwischen gespeichert, danach addieren wir zu unserem OFFSET die Kanalnummer, und benutzen das Ergebnis
-als neue Adresse. Dann wird der Aktuelle Wert an der Adresse ausgelesen und wir addieren unsere gerade gezählte Länge dazu (Zeile 15).
-Anschließend wird der neue Wert im HS abgelegt und wird stellen die ursprüngliche Adresse wieder her.
+Zunächst wird die aktuelle Adresse zwischengespeichert, danach addieren wir zu unserem OFFSET die Kanalnummer und benutzen das Ergebnis
+als neue Adresse. Dann wird der aktuelle Wert an der Adresse ausgelesen und wir addieren unsere gerade gezählte Länge dazu (Zeile 15).
+Anschließend wird der neue Wert im HS abgelegt und wir stellen die ursprüngliche Adresse wieder her.
 
 \leavevmode \\
 \includegraphics[width=16cm]{listing/row18-19.png}
@@ -383,7 +382,7 @@ Nun wird wie zuvor die Datenlänge wieder mit 0 initialisiert, der Zustand auf 1
 
 \leavevmode \\
 
-Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Dabei ensteht für dieses Beispiel volgende Tabelle im HS:
+Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Dabei ensteht für dieses Beispiel folgende Tabelle im HS:
 
 \begin{table}[h!]
     \begin{tabular}{l|l}
@@ -399,11 +398,11 @@ Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Da
 \newpage
 
 \section{Verbesserungsvorschläge} 
-Wenn man den Algorithmus dieser Maschine verbessert, sollte man immer abw{\"a}gen, ob die Verbesserung der Effizenz des Algorithmus auch eine Verbesserung in der Verst{\"a}dlichkeit mit sich bringt. Denn wenn man davon ausgeht, dass ein anderer Enwickler ein Projekt irgendwann wieder aufgreift und weiter entwickelt, muss man schauen welche Verbessungen sinnvoll w{\"a}ren. 
+Wenn man den Algorithmus dieser Maschine verbessert, sollte man immer abw{\"a}gen, ob die Verbesserung der Effizenz des Algorithmus auch eine Verbesserung der Verst{\"a}ndlichkeit mit sich bringt. Denn wenn man davon ausgeht, dass ein anderer Entwickler ein Projekt irgendwann wieder aufgreift und weiter entwickelt, muss man schauen, welche Verbessungen sinnvoll w{\"a}ren. 
 Wir haben uns einige Verbesserungen überlegt: 
 \begin{enumerate} 
-\item Generell, könnte man einige Register und Konstanten zusammenfassen bzw. vereinfachen.
-\item Die Multiplexter könnten durch etwas Planung gekürzt werden. (Zum Beispiel: Die Register sinnvoller anschließen)
+\item Generell könnte man einige Register und Konstanten zusammenfassen bzw. vereinfachen.
+\item Die Multiplexer könnten durch etwas Planung gekürzt werden. (z.B. die Register sinnvoller anschließen)
 \item Man könnte den Analysealgorithmus noch vereinfachen und ihn noch mehr wie einen Automaten ablaufen lassen.
 \end{enumerate}
 
