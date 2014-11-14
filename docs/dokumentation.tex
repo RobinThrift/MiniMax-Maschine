@@ -1,6 +1,7 @@
 \documentclass[12pt,titlepage]{article}
 
-\usepackage{ngerman,amsmath,graphicx,a4wide,fontspec,hyperref}
+\usepackage{amsmath,graphicx,a4wide,fontspec,hyperref}
+\usepackage[ngerman]{babel}
 \setmainfont{Helvetica Neue}
 \setmonofont{Menlo Regular}
 
@@ -202,27 +203,27 @@ Abb. 3 im Anhang)
     \caption{ALUSel.B}
 \end{table}
 
-<<<<<<< HEAD
+
 \subsection{Bewertung unserer Lösungen}
 
 \begin{enumerate}
 \item \textbf{reg (Anzahl der ergänzten Minimaxregister): } 7 Register
 \item \textbf{const (Anzahl der Konstantenten): } 7 Konstanten
-\item \textbf{alu_add (Alle erg{\"a}nzten Alu Befehle): } 3 Befehle
-\item \textbf{alu_use (Alle verwendteten Alu Befehle): } 3 Befehle
+\item \textbf{alu\_add (Alle erg{\"a}nzten Alu Befehle):} 3 Befehle
+\item \textbf{alu\_use (Alle verwendteten Alu Befehle):} 3 Befehle
 \end{enumerate}
 
 \subsubsection{Laufzeit}
-Mit der Laufzeit sind hier die Takte, die die Minimax-Maschine braucht um unser Ergebnis zu erzeugen, gemeint. t_{bench} beträgt in unserem Fall 3019 Takte.
+Mit der Laufzeit sind hier die Takte, die die Minimax-Maschine braucht um unser Ergebnis zu erzeugen, gemeint. $t_{bench}$ betr{\"a}gt in unserem Fall 3019 Takte.\\
 
-\textbf{Berechnung:} t_{bewertet} = 3019 * (1 + 0,1*7 + 0,015*3 + 0,05 * 7) = 6324,8 Takte
+\textbf{Berechnung:} $t_{bewertet} = 3019 * (1 + 0,1*7 + 0,015*3 + 0,05 * 7) = 6324,8$ Takte
 
 \subsubsection{Algorithmuslänge}
 Die Algorithmuslänge wird in Zeilen angegeben.\\
 
-\textbf{Berechnung:} n_{bewertet} = 22 + 5*7 + 3*3 + 5*7 = 101 Zeilen
+\textbf{Berechnung:} $n_{bewertet} = 22 + 5*7 + 3*3 + 5*7 = 101$ Zeilen
 
-=======
+
 \newpage
 
 \subsection{Programmdruchlauf}
