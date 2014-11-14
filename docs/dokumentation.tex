@@ -222,7 +222,6 @@ Die Algorithmuslänge wird in Zeilen angegeben.\\
 
 \textbf{Berechnung:} n_{bewertet} = 22 + 5*7 + 3*3 + 5*7 = 101 Zeilen
 
-
 =======
 \newpage
 
@@ -249,6 +248,15 @@ Als Beispiel werden hier die ersten 44 Bytes des zweiten Benchmarks untersucht (
     \end{tabular}
     \caption{Ersten 3200 Bit des zweiten Benchmarks interpretiert als 32-Bit-Zahlen}
 \end{table}
+
+\section{Verbesserungsvorschläge} 
+Wenn man den Algorithmus dieser Maschine verbessert, sollte man immer abw{\"a}gen, ob die Verbesserung der Effizenz des Algorithmus auch eine Verbesserung in der Verst{\"a}dlichkeit mit sich bringt. Denn wenn man davon ausgeht, dass ein anderer Enwickler ein Projekt irgendwann wieder aufgreift und weiter entwickelt, muss man schauen welche Verbessungen sinnvoll w{\"a}ren. 
+Wir haben uns einige Verbesserungen überlegt: 
+\begin{enumerate} 
+\item Generell, könnte man einige Register und Konstanten zusammenfassen bzw. vereinfachen.
+\item Die Multiplexter könnten durch etwas Planung gekürzt werden. (Zum Beispiel: Die Register sinnvoller anschließen)
+\item Man könnte den Analysealgorithmus noch vereinfachen und ihn noch mehr wie einen Automaten ablaufen lassen.
+\end{enumerate}
 
 \includegraphics[width=16cm]{listing/row1-4.png}
 \leavevmode \\
