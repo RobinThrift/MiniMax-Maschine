@@ -118,6 +118,26 @@ Abb. 3 im Anhang)
 \item Einen exportierten Schaltplan der erweiterten Minimax-Maschine.
 \end{enumerate}
 
+\section{Arbeitsaufteilung}
+Da sich das vorliegende Problem sehr gut in kleinere Teilprobleme aufteilen lässt ergibt sich folgende 
+Arbeitsteilung:
+\leavevmode \\
+\\
+\begin{tabular}{|l|c|}
+\hline
+Robin Thrift &  Analyse-Algorithmus der ausgelesenen Daten \\
+\hline
+Clemens Pollak & sequentieller Einlesealgorithmus \\
+\hline
+Max Boll & Speicheralgorithmus \\
+\hline
+\end{tabular}
+\leavevmode \\
+\\
+Dies beinhaltet auch die Dokumentation der jeweiligen Aufgabe (Da Git und LaTeX verwendet werden kann jedes 
+Teammitglied gefahrlos zur Dokumentation beitragen).
+
+
 \section{Projektdurchf{\"u}hrung}
 
 \subsection{Zeitlicher Ablauf der Projektarbeit}
@@ -248,14 +268,6 @@ Als Beispiel werden hier die ersten 44 Bytes des zweiten Benchmarks untersucht (
     \caption{Ersten 3200 Bit des zweiten Benchmarks interpretiert als 32-Bit-Zahlen}
 \end{table}
 
-\section{Verbesserungsvorschläge} 
-Wenn man den Algorithmus dieser Maschine verbessert, sollte man immer abw{\"a}gen, ob die Verbesserung der Effizenz des Algorithmus auch eine Verbesserung in der Verst{\"a}dlichkeit mit sich bringt. Denn wenn man davon ausgeht, dass ein anderer Enwickler ein Projekt irgendwann wieder aufgreift und weiter entwickelt, muss man schauen welche Verbessungen sinnvoll w{\"a}ren. 
-Wir haben uns einige Verbesserungen überlegt: 
-\begin{enumerate} 
-\item Generell, könnte man einige Register und Konstanten zusammenfassen bzw. vereinfachen.
-\item Die Multiplexter könnten durch etwas Planung gekürzt werden. (Zum Beispiel: Die Register sinnvoller anschließen)
-\item Man könnte den Analysealgorithmus noch vereinfachen und ihn noch mehr wie einen Automaten ablaufen lassen.
-\end{enumerate}
 
 \includegraphics[width=16cm]{listing/row1-4.png}
 \leavevmode \\
@@ -385,12 +397,20 @@ Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Da
 \end{table}
 
 \newpage
->>>>>>> 043f143ec91bdf9c619477c1531ffbf8585f4608
+
+\section{Verbesserungsvorschläge} 
+Wenn man den Algorithmus dieser Maschine verbessert, sollte man immer abw{\"a}gen, ob die Verbesserung der Effizenz des Algorithmus auch eine Verbesserung in der Verst{\"a}dlichkeit mit sich bringt. Denn wenn man davon ausgeht, dass ein anderer Enwickler ein Projekt irgendwann wieder aufgreift und weiter entwickelt, muss man schauen welche Verbessungen sinnvoll w{\"a}ren. 
+Wir haben uns einige Verbesserungen überlegt: 
+\begin{enumerate} 
+\item Generell, könnte man einige Register und Konstanten zusammenfassen bzw. vereinfachen.
+\item Die Multiplexter könnten durch etwas Planung gekürzt werden. (Zum Beispiel: Die Register sinnvoller anschließen)
+\item Man könnte den Analysealgorithmus noch vereinfachen und ihn noch mehr wie einen Automaten ablaufen lassen.
+\end{enumerate}
 
 \section{Anhang}
 
 \subsection{Abb. 1: Basismaschine}
-\includegraphics[width=13cm]{schematics.png}
+\includegraphics[width=12cm]{schematics.png}
 
 \subsection{Abb. 2: Flussdiagramm des Speicherausleseprogramms}
 \includegraphics[width=13cm]{readFromMemory.png}
@@ -399,37 +419,16 @@ Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Da
 \includegraphics[width=13cm]{analyseData.png}
 
 \subsection{Abb. 4: Flussdiagramm des Speicherprogramms}
-\includegraphics[width=13cm]{saveToHS.png}
-
-\subsection{Abb. 5: Flussdiagramm des Programms zum Überspringen des Datenfeldes}
-\includegraphics[width=10cm]{skipBits.png}
+\includegraphics[width=9cm]{saveToHS.png}
 
 \subsection{Abb. 6: Aufbau der erweiterten Maschine}
-\includegraphics[width=10cm]{schematics_added.png}
+\includegraphics[width=9cm]{schematics_added.png}
 
 \subsection{Abb. 7: Vollständige Steuertabelle}
-\includegraphics[width=10cm]{signal_table.png}
+\includegraphics[width=18cm]{signal_table.png}
 
 \newpage
 
-\section{Arbeitsaufteilung}
-Da sich das vorliegende Problem sehr gut in kleinere Teilprobleme aufteilen lässt ergibt sich folgende 
-Arbeitsteilung:
-\leavevmode \\
-\\
-\begin{tabular}{|l|c|}
-\hline
-Robin Thrift &  Analyse-Algorithmus der ausgelesenen Daten \\
-\hline
-Clemens Pollak & sequentieller Einlesealgorithmus \\
-\hline
-Max Boll & Speicheralgorithmus \\
-\hline
-\end{tabular}
-\leavevmode \\
-\\
-Dies beinhaltet auch die Dokumentation der jeweiligen Aufgabe (Da Git und LaTeX verwendet werden kann jedes 
-Teammitglied gefahrlos zur Dokumentation beitragen).
 
 
 \section{Hilfsmittel}
