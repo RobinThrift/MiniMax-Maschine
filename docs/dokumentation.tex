@@ -94,6 +94,9 @@ Die Überprüfung wird nach jeder Analyse wiederholt.
 \subsection{Analyse der Daten}
 Die Analyse der Daten kann als einfacher endlicher Automat mit 2 Zuständen betrachtet werden (0, 1). Im ersten Zustand (0)
 wurde noch kein Paket gefunden und es wird mithilfe einer Bitmaske ($1111_{2} = 15_{10}$) nach der Anfangssequenz gesucht. 
+Zunächst wird ab dem \dq Least Significant Bit\dq gesucht. Wird dort das Muster nicht gefunden, wird die Bitmaske (und die
+Subtraktionszahl) so lange nach links \dq geschiftet\dq bis die Startsequenz gefunden wurde, oder
+alle möglichen Positionen des Muster erschöpft wurden (Zahl ist Datenteil).
 Wenn die Startsequenz gefunden wurde, wird der Zustand verändert (zu 1) und es wird auf die nächste Zahl aus dem HS gewartet. 
 In der nächsten Zahl aus dem HS befindet sich die Kanalnummer. Diese wird mit einer weiteren Bitmaske ausgelesen
 und im Register \texttt{CHNL} abgelegt.
@@ -162,12 +165,15 @@ Teammitglied gefahrlos zur Dokumentation beitragen).
 \item \texttt{CHNL}: hält die aktuelle Kanalnummer
 \item \texttt{DATAC}: Zähler für Länge des Datenfeldes
 \item \texttt{STATE}: Variable zum Speichern des Status vom Analyseautomaten
+\item \texttt{MASK}: Bitmaske, mit der das Bitmuster der Startsequenz erkannt wird
+\item \texttt{TEST}: Wert mit dem Subtrahiert werden muss um die Sequenz zu überprüfen
 \end{enumerate}
 
 \subsubsection{ALU-Operationen}
 
 \begin{enumerate}
 \item \texttt{A AND B}: bitweise Und-Verknüpfung
+\item \texttt{B LS}: Bit-Shift Links auf B
 \end{enumerate}
 
 \subsubsection{Konstanten}
@@ -178,6 +184,7 @@ Teammitglied gefahrlos zur Dokumentation beitragen).
 \item \texttt{31}: Bitmaske zum Auslesen der Kanalnummern (nur für Benchmark)
 \item \texttt{32}: Speicherblockgröße
 \item \texttt{-16}: Headeroverflow
+\item \texttt{0xF0000000}: Maximalwert der Bitmaske
 \end{enumerate}
 
 \leavevmode \\
@@ -199,6 +206,9 @@ Teammitglied gefahrlos zur Dokumentation beitragen).
     1000     & -16               \\
     1001     & OFFSET (Register) \\
     1010     & DATAC (Register)  \\
+    1100     & 0xF0000000        \\
+    1101     & TEST (Register)   \\
+    1110     & MASK (Register)   \\
     \end{tabular}
     \caption{ALUSel.A}
 \end{table}
@@ -217,6 +227,8 @@ Teammitglied gefahrlos zur Dokumentation beitragen).
     0111     & CHNL (Register) \\
     1000     & OLD (Register)  \\
     1001     & 511             \\
+    1010     & MASK (Register) \\
+    1011     & TEST (Register) \\
     \end{tabular}
     \caption{ALUSel.B}
 \end{table}
@@ -284,20 +296,23 @@ Entsprechend des Zustands wird hier unterschieden zwischen Kanalnummer- und Star
 wird natürlich zunächst einmal eine Startsequenz gesucht und der Zustand ist Null (0).
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row7-8.png}
+\includegraphics[width=16cm]{listing/row7-13.png}
 \leavevmode \\
-Nun wird die Bitmaske auf den Wert aus \texttt{MDR} angewendet und anschließend die Startsequenz abgezogen, um
+Zunächst setzen wir die Bitmaske auf 15 und den Subtraktionswert auf 14, dann
+wird die Bitmaske auf den Wert aus \texttt{MDR} angewendet und anschließend der Subtraktionswert abgezogen, um
 zu überprüfen, ob diese im Wert enthalten ist. Ist dies der Fall, so springen wir zur Zeile mit dem Label \dq new\dq, 
-da es sich um ein neues Datenpaket handelt. In diesem konkreten Fall wenden wir also $16843022 \text{ AND } 15$ an und finden
+da es sich um ein neues Datenpaket handelt. Wenn die Startsequenz jedoch nicht finden lässte suchen wir weiter, indem die Bitmaske (und der Subtraktionswert)
+so lange nach links geschiftet (hier: effektiv verdoppelt) werden (Z. 12 & 13) bis das Muster gefunden wurde, oder die Bitmaske den Maximalwert (Z. 11) erreicht hat.
+In diesem konkreten Fall wenden wir also $16843022 \text{ AND } 15$ an und finden
 die Startsequenz.
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row9-10.png}
+\includegraphics[width=16cm]{listing/row14-16.png}
 \leavevmode \\
-Hier wird die Datenlänge überprüft, die wir jedoch für den Moment ignorieren können, wir überspringen im ersten Fall auch den Speicheralgorithmus und machen mit Zeile 18 weiter:
+Hier wird die Datenlänge überprüft, die wir jedoch für den Moment ignorieren können, wir überspringen im ersten Fall auch den Speicheralgorithmus und machen mit Zeile 24 weiter:
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row18-19.png}
+\includegraphics[width=16cm]{listing/row24-25.png}
 \leavevmode \\
 Da wir die Startsequenz gefunden haben, setzen wir nun den Zustand auf 1 und initialisieren die Datenlänge mit 0. Danach springt
 das Programm zurück zur Schleife:
@@ -311,10 +326,10 @@ Iteration zu starten. Wir laden nun den Wert 16842760 aus dem Speicher und über
 \leavevmode \\
 \includegraphics[width=16cm]{listing/row6.png}
 \leavevmode \\
-Wir überprüfen erneut den Zustand und springen nun zum Auslesen der Kanalnummer, da wir uns in Zustand 1 befinden.
+Wir überprüfen erneut den Zustand und springen nun zum Auslesen der Kanalnummer (Z. 27), da wir uns in Zustand 1 befinden.
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row21-22.png}
+\includegraphics[width=16cm]{listing/row27-28.png}
 \leavevmode \\
 Mit der Bitmaske 31 lesen wir die Kanalnummer aus der Zahl aus, speichern sie im Register \texttt{CHNL}
 und setzen anschließend den Zustand wieder auf 0 und springen zur Schleife
@@ -331,12 +346,12 @@ Nun laden wir den Wert 16843009 aus dem Speicher und übergeben ihn dem Analysep
 Nun sind wir wieder im Zustand 0, suchen also wieder nach der Startsequenz.
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row7-8.png}
+\includegraphics[width=16cm]{listing/row7-13.png}
 \leavevmode \\
-Die Startsequenz kann nicht gefunden werden, also springen wir zur Zeile 20.
+Die Startsequenz kann nicht gefunden werden, also springen wir zur Zeile 26.
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row20.png}
+\includegraphics[width=16cm]{listing/row26.png}
 \leavevmode \\
 Wir addieren die Länge der ausgelassenen Zahl in Bits (32) zur aktuellen Gesamtlänge des Datenfeldes (hier 0) und
 springen zurück zur Schleife.
@@ -347,20 +362,20 @@ springen zurück zur Schleife.
 Wir überspringen für dieses Beispiel Block 4 im Speicher und machen mit Adresse 5 weiter; Wert: 16843022.
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row7-8.png}
+\includegraphics[width=16cm]{listing/row7-13.png}
 \leavevmode \\
 Wir suchen erneut nach der Startsequenz und finden sie, nun ziehen wir 16 von der gezählten Länge ab (Anzahl Bits des Headers, die wir
 mitgezählt haben) und übergeben dem Speicherprogramm:
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row11-17.png}
+\includegraphics[width=16cm]{listing/row17-23.png}
 \leavevmode \\
 Zunächst wird die aktuelle Adresse zwischengespeichert, danach addieren wir zu unserem OFFSET die Kanalnummer und benutzen das Ergebnis
 als neue Adresse. Dann wird der aktuelle Wert an der Adresse ausgelesen und wir addieren unsere gerade gezählte Länge dazu (Zeile 15).
 Anschließend wird der neue Wert im HS abgelegt und wir stellen die ursprüngliche Adresse wieder her.
 
 \leavevmode \\
-\includegraphics[width=16cm]{listing/row18-19.png}
+\includegraphics[width=16cm]{listing/row24-25.png}
 \leavevmode \\
 Nun wird wie zuvor die Datenlänge wieder mit 0 initialisiert, der Zustand auf 1 gesetzt und es wird zurück zur Schleife gesprungen.
 
@@ -387,6 +402,7 @@ Wir haben uns einige Verbesserungen überlegt:
 \item Generell könnte man einige Register und Konstanten zusammenfassen bzw. vereinfachen.
 \item Die Multiplexer könnten durch etwas Planung gekürzt werden. (z.B. die Register sinnvoller anschließen)
 \item Man könnte den Analysealgorithmus noch vereinfachen und ihn noch mehr wie einen Automaten ablaufen lassen.
+\item Genaueres Bit-Zählen der Länge der Datenteile
 \end{enumerate}
 
 \section{Anhang}
