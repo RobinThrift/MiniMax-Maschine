@@ -241,10 +241,10 @@ Wir haben zwei Algorithmen implementiert, da bei dem ersten ursprünglcihen Algo
 Zuerst führen wir die Bewertung des 1. Algorithmus aus.
 
 \begin{enumerate}
-\item \textbf{reg (Anzahl der ergänzten Minimaxregister): } 7 Register
+\item \textbf{reg (Anzahl der ergänzten Minimax-Register): } 7 Register
 \item \textbf{const (Anzahl der Konstanten): } 7 Konstanten
 \item \textbf{alu\_add (alle erg{\"a}nzten ALU-Befehle):} 6 Befehle
-\item \textbf{alu\_use (alle verwendteten ALU-Befehle):} $2*6 = 12$ Befehle
+\item \textbf{alu\_use (alle verwendeten ALU-Befehle):} $2*6 = 12$ Befehle
 \end{enumerate}
 
 \subsubsection{Laufzeit}
@@ -307,9 +307,9 @@ wird natürlich zunächst einmal eine Startsequenz gesucht und der Zustand ist N
 Zunächst setzen wir die Bitmaske auf 15 und den Subtraktionswert auf 14, dann
 wird die Bitmaske auf den Wert aus \texttt{MDR} angewendet und anschließend der Subtraktionswert abgezogen, um
 zu überprüfen, ob diese im Wert enthalten ist. Ist dies der Fall, so springen wir zur Zeile mit dem Label \dq new\dq, 
-da es sich um ein neues Datenpaket handelt. Wenn die Startsequenz jedoch nicht finden lässte suchen wir weiter, indem die Bitmaske (und der Subtraktionswert)
+da es sich um ein neues Datenpaket handelt. Wenn die Startsequenz jedoch nicht finden l{\"a}sst suchen wir weiter, indem die Bitmaske (und der Subtraktionswert)
 so lange nach links geschiftet (hier: effektiv verdoppelt) werden (Z. 12 und 13) bis das Muster gefunden wurde, oder die Bitmaske den Maximalwert (Z. 11) erreicht hat.
-In diesem konkreten Fall wenden wir also $16843022 \text{ AND } 15$ an und finden
+In diesem konkreten Fall wenden wir $16843022 \text{ AND } 15$ an und finden
 die Startsequenz.
 
 \leavevmode \\
@@ -386,7 +386,7 @@ Anschließend wird der neue Wert im HS abgelegt und wir stellen die ursprünglic
 Nun wird wie zuvor die Datenlänge wieder mit 0 initialisiert, der Zustand auf 1 gesetzt und es wird zurück zur Schleife gesprungen.
 
 \leavevmode \\
-Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Dabei ensteht für dieses Beispiel folgende Tabelle im HS:
+Dieser Vorgang wird nun wiederholt, bis das Register \texttt{COUNT} Null ist. Dabei entsteht für dieses Beispiel folgende Tabelle im HS:
 
 \begin{table}[h!]
     \begin{tabular}{l|l}
@@ -445,7 +445,7 @@ Wir haben folgende Quellen benutzt:
 \item Flowcharts: \string[\url{https://www.draw.io}]
 \item SRA Minimax-Simulator
 \item Informationsfolien (Aufgabenstellung)
-\item Materialen der Veranstaltung \dq Grundlagen der Rechnerarchitektur\dq von Prof. Dr.-Ing. habil. Jürgen Brehm
+\item Materialien der Veranstaltung \dq Grundlagen der Rechnerarchitektur\dq von Prof. Dr.-Ing. habil. J{\"u}rgen Brehm
 \end{enumerate}
 
 \end{document}
