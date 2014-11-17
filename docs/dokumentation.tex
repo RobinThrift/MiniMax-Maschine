@@ -302,7 +302,7 @@ Zunächst setzen wir die Bitmaske auf 15 und den Subtraktionswert auf 14, dann
 wird die Bitmaske auf den Wert aus \texttt{MDR} angewendet und anschließend der Subtraktionswert abgezogen, um
 zu überprüfen, ob diese im Wert enthalten ist. Ist dies der Fall, so springen wir zur Zeile mit dem Label \dq new\dq, 
 da es sich um ein neues Datenpaket handelt. Wenn die Startsequenz jedoch nicht finden lässte suchen wir weiter, indem die Bitmaske (und der Subtraktionswert)
-so lange nach links geschiftet (hier: effektiv verdoppelt) werden (Z. 12 & 13) bis das Muster gefunden wurde, oder die Bitmaske den Maximalwert (Z. 11) erreicht hat.
+so lange nach links geschiftet (hier: effektiv verdoppelt) werden (Z. 12 und 13) bis das Muster gefunden wurde, oder die Bitmaske den Maximalwert (Z. 11) erreicht hat.
 In diesem konkreten Fall wenden wir also $16843022 \text{ AND } 15$ an und finden
 die Startsequenz.
 
