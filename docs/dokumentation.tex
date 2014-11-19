@@ -270,7 +270,7 @@ Nun schauen wir uns den 2. Algorithmus an.
 
 \begin{enumerate}
 \item \textbf{reg (Anzahl der ergänzten Minimax-Register): } 9 Register
-\item \textbf{const (Anzahl der Konstanten): } 7 Konstanten
+\item \textbf{const (Anzahl der Konstanten): } 8 Konstanten
 \item \textbf{alu\_add (alle erg{\"a}nzten ALU-Befehle):} 6
 \item \textbf{alu\_use (alle verwendeten ALU-Befehle):} $2*6=12$
 \end{enumerate}
@@ -279,14 +279,14 @@ Nun schauen wir uns den 2. Algorithmus an.
 Die Laufzeit beschreibt die Takte, die von der Maschine gebraucht werden um unser Ergebnis zu erzeugen. $t_{bench}$ beträgt in unserem Fall 16201 Takte für den ersten Benchmark, 27067 Takte für den Zweiten und 31451 Takte für den Dritten.\\
 
 \textbf{Berechnung:}\\\\
-Für den ersten Benchmark: $t_{bewertet} = 16201 * (1 + 0,1*9 + 0,015*6 + 0,05 * 7) = 5672,3$\\\\
-Für den zweiten Benchmark: $t_{bewertet} = 27067 * (1 + 0,1*9 + 0,015*6 + 0,05 * 7) = 9475,4$\\\\
-Für den dritten Benchmark: $t_{bewertet} = 31451 * (1 + 0,1*9 + 0,015*6 + 0,05 * 7) = 11009,7$\\
+Für den ersten Benchmark: $t_{bewertet} = 16201 * (1 + 0,1*9 + 0,015*6 + 0,05 * 8) = 38720,4$\\\\
+Für den zweiten Benchmark: $t_{bewertet} = 27067 * (1 + 0,1*9 + 0,015*6 + 0,05 * 8) = 64690,4$\\\\
+Für den dritten Benchmark: $t_{bewertet} = 31451 * (1 + 0,1*9 + 0,015*6 + 0,05 * 8) = 75167,9$\\
 
 \subsubsection{Algorithmuslänge}
 Die Algorithmuslänge wird in Zeilen angegeben.\\
 
-\textbf{Berechnung:} $n_{bewertet} = 28 + 5*9 + 3*12 + 5*7 = 144$
+\textbf{Berechnung:} $n_{bewertet} = 29 + 5*9 + 3*12 + 5*7 = 145$
 
 
 \newpage
